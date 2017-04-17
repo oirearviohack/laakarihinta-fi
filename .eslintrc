@@ -1,0 +1,44 @@
+{
+    "settings": {
+        "ecmascript": 6
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+        "react"
+    ],
+    "extends": "eslint-config-airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+        "no-console": [0],
+        "global-require": [0],
+        "max-len": [1, 130],
+        "dot-notation": [0],
+        "indent": [2, 4, { "SwitchCase": 1 }],
+        "no-new": [0],
+        "no-use-before-define": [2, { "functions": false }],
+        "comma-dangle": [2, "never"],
+        "react/jsx-first-prop-new-line": [1, "multiline"],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-filename-extension": [0],
+        "react/jsx-indent-props": [2, 4],
+        "react/jsx-closing-bracket-location": [0],
+        "no-underscore-dangle": [0],
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}]
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "mocha": true
+    },
+    "globals": {
+        "__CLIENT__": true,
+        "__SERVER__": true,
+        "__DISABLE_SSR__": true,
+        "__DEV__": true,
+        "webpackIsomorphicTools": true
+    }
+}

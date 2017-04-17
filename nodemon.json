@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "index.js",
+    "tools/webpack/",
+    "!tools/webpack/webpack.server.js",
+    "src/server.js",
+    "src/components/html/html.js",
+    "src/lib/server/"
+  ]
+}
