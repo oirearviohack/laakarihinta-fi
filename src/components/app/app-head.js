@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 
 const AppHead = () => (
     <Helmet
-        htmlAttributes={{ lang: 'en', amp: undefined }}
+        htmlAttributes={{ lang: 'en' }}
         title="Wwwonderful"
         titleTemplate="Wwwonderful"
         defaultTitle="Wwwonderful"
