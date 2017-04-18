@@ -11,7 +11,7 @@ export default (port) => {
       // on OS X Google Chrome with AppleScript
             execSync('ps cax | grep "Google Chrome"');
             execSync(
-        `osascript ${path.join(__dirname, './openChrome.applescript')} https://localhost:${port}/`,
+        `osascript ${path.join(__dirname, './openChrome.applescript')} http://localhost:${port}/`,
       );
             return true;
         } catch (err) {
@@ -20,7 +20,7 @@ export default (port) => {
     }
   // Fallback to opn
     try {
-        opn(`https://localhost:${port}/`);
+        opn(`http://localhost:${port}/`);
         return true;
     } catch (err) {
         return false;
