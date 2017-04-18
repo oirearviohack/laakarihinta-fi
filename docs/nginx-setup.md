@@ -14,6 +14,9 @@ Run nginx -t to test if your configuration is ok.
 - https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
 - https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04
 
+# Setup custom url
+- Windows: C:\windows\System32\drivers\etc (setup your custom DNS, remember to clear out)
+
 # Example config 
 ```
 events {
@@ -39,14 +42,14 @@ http {
 	server {
 		listen 80;
 		listen [::]:80;
-		server_name    localhost;
+		server_name    wwwonderful.com;
 		return 301 https://$server_name$request_uri;
 	}
 
 	server {
 		listen						443 ssl http2 default_server;
 		listen                    	[::]:443 ssl http2 default_server;
-		server_name               	localhost;
+		server_name               	wwwonderful.com;
 
 		ssl                         	on;
 		ssl_ciphers                 	HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
@@ -58,7 +61,7 @@ http {
 		ssl_prefer_server_ciphers   	on;
 
 		location / {
-			proxy_pass              		http://node$request_uri;
+			proxy_pass              		http://wwwonderful$request_uri;
 			proxy_redirect          		off;
 			proxy_set_header        		X-Real-IP $remote_addr;
 			proxy_set_header        		X-Forwarded-For $proxy_add_x_forwarded_for;
