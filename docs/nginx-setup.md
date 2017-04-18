@@ -34,7 +34,7 @@ http {
 	add_header X-Frame-Options          "deny";
 	add_header X-Content-Type-Options   "nosniff";
 	
-	upstream node {
+	upstream wwwonderful {
 		server 127.0.0.1:8080;
 		keepalive 64;
 	}
@@ -49,7 +49,7 @@ http {
 	server {
 		listen						443 ssl http2 default_server;
 		listen                    	[::]:443 ssl http2 default_server;
-		server_name               	wwwonderful.com;
+		server_name               	wwwonderful;
 
 		ssl                         	on;
 		ssl_ciphers                 	HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
