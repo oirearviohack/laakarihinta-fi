@@ -3,7 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const { eslint } = require('./config');
+const { CSSModules, eslint } = require('./config');
 
 module.exports = {
     name: 'server',
@@ -44,6 +44,7 @@ module.exports = {
                     {
                         loader: 'css/locals',
                         options: {
+                            modules: CSSModules,
                             context: path.join(process.cwd(), './src'),
                             localIdentName: '[hash:base64:5]'
                         }

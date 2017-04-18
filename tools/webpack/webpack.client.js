@@ -6,7 +6,7 @@ const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const { eslint, stylelint, vendor } = require('./config');
+const { CSSModules, eslint, stylelint, vendor } = require('./config');
 
 
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -20,7 +20,8 @@ const getPlugins = () => {
         new ExtractTextPlugin({
             filename: '[name].[contenthash:8].css',
             allChunks: true,
-            disable: isDev
+            disable: isDev,
+            ignoreOrder: CSSModules
         }),
         new webpack.LoaderOptionsPlugin({
             options: {
@@ -129,6 +130,7 @@ module.exports = {
                             options: {
                                 importLoaders: 1,
                                 sourceMap: true,
+                                modules: CSSModules,
                                 context: path.join(process.cwd(), './src'),
                                 localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
                                 minimize: !isDev
@@ -156,6 +158,7 @@ module.exports = {
                             options: {
                                 importLoaders: 2,
                                 sourceMap: true,
+                                modules: CSSModules,
                                 context: path.join(process.cwd(), './src'),
                                 localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
                                 minimize: !isDev

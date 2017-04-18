@@ -1,3 +1,6 @@
+// Disable CSSModules here
+const CSSModules = false;
+
 // Disable js lint error terminating here
 const eslint = true;
 
@@ -21,5 +24,6 @@ const vendor = [
 module.exports = {
     eslint,
     stylelint,
-    vendor
+    vendor,
+    CSSModules
 };
