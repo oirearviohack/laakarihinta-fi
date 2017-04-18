@@ -6,8 +6,13 @@ import { withRouter } from 'react-router-dom';
 import AppHead from './app-head';
 import Main from '../layouts/main';
 import localeActions from '../locale/locale-actions';
-import '../../assets/styles/main.scss';
 
+
+if (__DEV__) {
+    require('../../assets/styles/main-dev.scss');
+} else {
+    require('../../assets/styles/main-prod.scss');
+}
 
 class App extends Component {
 

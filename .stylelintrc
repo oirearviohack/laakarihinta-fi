@@ -12,6 +12,7 @@
             }
         ],
         "no-empty-source": null,
-        "indentation": 4
+        "indentation": 4,
+        "length-zero-no-unit": null
     }
 }

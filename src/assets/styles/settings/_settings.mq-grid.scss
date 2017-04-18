@@ -1,0 +1,12 @@
+$mq-breakpoints: (
+    xs: 0px,
+    s: 576px,
+    m: 768px,
+    l: 992px,
+    xl: 1200px
+);
+
+$mq-show-breakpoints: if(get-config-value(env) == development, (xs, s, m, l, xl), ());
+
+$grid-breakpoints: $mq-breakpoints;
+
