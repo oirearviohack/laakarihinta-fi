@@ -17,6 +17,9 @@ Run nginx -t to test if your configuration is ok.
 # Setup custom url
 - Windows: C:\windows\System32\drivers\etc (setup your custom DNS, remember to clear out)
 
+# NOTE
+- In development mode, just use the app without nginx proxy
+
 # Example config 
 ```
 events {
@@ -76,9 +79,16 @@ http {
 			add_header              		Cache-Control "public";
 			access_log              		on;
 		}
+		
+		location ~*	\.(css|js|jpe?g|png|svg|ico)$ {
+			#Should point to the public folder
+			root 		/Users/Joona/wwwonderful-web/build/public;
+			access_log	off;
+			expires 	168h;
+		}
 
-		access_log   	logs/access.log;
-		error_log     logs/error.log warn;
+		access_log		logs/access.log;
+		error_log     	logs/error.log warn;
 	}
 }
 ```

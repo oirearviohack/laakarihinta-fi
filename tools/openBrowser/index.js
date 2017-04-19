@@ -10,9 +10,7 @@ export default (port) => {
       // Try our best to reuse existing tab
       // on OS X Google Chrome with AppleScript
             execSync('ps cax | grep "Google Chrome"');
-            execSync(
-        `osascript ${path.join(__dirname, './openChrome.applescript')} http://localhost:${port}/`,
-      );
+            execSync(`osascript ${path.join(__dirname, './openChrome.applescript')} http://localhost:${port}/`);
             return true;
         } catch (err) {
       // Ignore errors.

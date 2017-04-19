@@ -13,6 +13,7 @@
         ],
         "no-empty-source": null,
         "indentation": 4,
-        "length-zero-no-unit": null
+        "length-zero-no-unit": null,
+        "selector-pseudo-element-colon-notation": null
     }
 }
