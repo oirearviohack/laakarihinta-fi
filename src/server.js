@@ -2,8 +2,6 @@ import express from 'express';
 import compression from 'compression';
 import helmet from 'helmet';
 import hpp from 'hpp';
-import path from 'path';
-import favicon from 'serve-favicon';
 import { port } from './config';
 import apiRouter from './server/api-router';
 import logging from './lib/server/logging';

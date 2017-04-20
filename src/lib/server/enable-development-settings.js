@@ -5,8 +5,6 @@ const enableDevelopmentSettings = (app) => {
     const webpackConfig = require('../../../tools/webpack/webpack.client');
     const compiler = webpack(webpackConfig);
 
-    // app.use(favicon(path.join(process.cwd(), './build/public/favicon.ico')));
-    // app.use(express.static(path.join(process.cwd(), './build/public')));
     app.use(webpackDevMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath,
         hot: true,
