@@ -1,4 +1,8 @@
-FROM node:7.9.0
+FROM node:6.9.1
+
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+
+ENV PATH="/root/.yarn/bin:${PATH}"
 
 RUN mkdir -p /usr/src/wwwonderful-web
 RUN mkdir -p /usr/src/wwwonderful-web/build

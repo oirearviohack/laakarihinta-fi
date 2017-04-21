@@ -13,7 +13,7 @@
     "author": "Joona Rahko & David Reid",
     "license": "MIT",
     "scripts": {
-        "start": "better-npm-run start",
+        "start": "yarn build && yarn start:prod",
         "start:production": "yarn build && yarn start:prod",
         "start:prod": "better-npm-run start:prod",
         "build": "yarn build:client && yarn build:server",
@@ -32,6 +32,14 @@
     },
     "betterScripts": {
         "start": {
+            "command": "node ./ecosystem.js && pm2 logs all",
+            "env": {
+                "NODE_PATH": "./src",
+                "NODE_ENV": "production",
+                "PORT": 8080
+            }
+        },
+        "start:dev": {
             "command": "nodemon ./index.js --exec babel-node",
             "env": {
                 "NODE_PATH": "./src",

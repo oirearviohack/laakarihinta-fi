@@ -13,9 +13,6 @@ import renderHandler from './lib/server/render-handler';
 
 
 const app = express();
-
-console.log('Call me maybe');
-
 app.use(healthCheck);
 app.use(helmet());
 app.use(hpp());
