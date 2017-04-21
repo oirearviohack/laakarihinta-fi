@@ -1,4 +1,4 @@
-FROM node:6.9.1
+FROM node:7.9.0
 
 RUN mkdir -p /usr/src/wwwonderful-web
 RUN mkdir -p /usr/src/wwwonderful-web/build
@@ -18,7 +18,9 @@ COPY .stylelintrc /usr/src/wwwonderful-web
 COPY ecosystem.js /usr/src/wwwonderful-web
 COPY index.js /usr/src/wwwonderful-web
 COPY test-config.js /usr/src/wwwonderful-web
+COPY yarn.lock /usr/src/wwwonderful-web
 
+RUN ["yarn", "add", "pm2", "-g"]
 RUN ["yarn", "install"]
 
 EXPOSE 8080
