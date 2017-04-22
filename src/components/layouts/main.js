@@ -1,24 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import Navbar from '../navbar/navbar';
 import Footer from '../footer/footer';
+import localeActions from '../locale/locale-actions';
 
 
-const Main = ({ route }) => (
-    <div className="o-main-layout">
-        <Navbar />
-        <div className="o-main-layout__content">
-            {renderRoutes(route.routes)}
-        </div>
-        <Footer />
-    </div>
-);
+class Main extends Component {
 
-Main.propTypes = {
-    route: PropTypes.shape({
-        routes: PropTypes.array
-    }).isRequired
-};
+    static fetchData(store) {
+        return store.dispatch(localeActions.getLocale('en-GB'));
+    }
 
-export default Main;
+    static propTypes = {
+        route: PropTypes.shape({
+            routes: PropTypes.array
+        }).isRequired,
+        actions: PropTypes.shape({
+            getLocale: PropTypes.func.isRequired
+        }).isRequired
+    };
+
+    componentDidMount() {
+        this.props.actions.getLocale('en-GB');
+    }
+
+    render() {
+        return (
+            <div className="o-main-layout">
+                <Navbar />
+                <div className="o-main-layout__content">
+                    {renderRoutes(this.props.route.routes)}
+                </div>
+                <Footer />
+            </div>
+        );
+    }
+
+}
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ ...localeActions }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Main);

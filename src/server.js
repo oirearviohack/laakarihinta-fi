@@ -4,10 +4,10 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 import favicon from 'serve-favicon';
 import path from 'path';
+import forceDomain from 'forcedomain';
 import { port } from './config';
 import apiRouter from './server/api-router';
 import logging from './lib/server/logging';
-import forceSSL from './lib/server/force-ssl';
 import healthCheck from './lib/server/health-check';
 import enableDevelopmentSettings from './lib/server/enable-development-settings';
 import renderHandler from './lib/server/render-handler';
@@ -17,7 +17,7 @@ import { logErrors, catchAllErrorHandler, clientErrorHandler } from './lib/serve
 
 const app = express();
 app.use(healthCheck);
-app.use(forceSSL);
+app.use(forceDomain({ hostname: 'wwwonderful.com', protocol: 'https' }));
 app.use(helmet());
 app.use(hpp());
 app.use(compression());
