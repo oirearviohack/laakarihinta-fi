@@ -16,7 +16,7 @@ const renderHtml = (store, htmlContent) => {
     return `<!DOCTYPE html>${html}`;
 };
 
-const renderHandler = async (req, res, next) => {
+const renderHandler = async (req, res) => {
     if (__DEV__) webpackIsomorphicTools.refresh();
     const store = configureStore();
 

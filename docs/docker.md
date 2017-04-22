@@ -1,5 +1,8 @@
+# Get AWS Login
+- aws ecr get-login --region eu-west-2
+
 # To build
-- docker build -t wwwonderful/aws-docker .
+- docker build -t wwwonderful/aws-docker . OR ./tools/deployment/build.docker.sh
 
 # View images
 - docker images
@@ -10,7 +13,6 @@
 
 # To push image to AWS 
 - Commands can be found in https://eu-west-2.console.aws.amazon.com/ecs/home?region=eu-west-2#/repositories/create/new
-- docker tag wwwonderful/aws-docker:latest (id).dkr.ecr.eu-west-2.amazonaws.com/wwwonderful/aws-docker:latest
 
 # Get container ID
 - docker ps
@@ -20,3 +22,6 @@
 
 # Print app output
 - docker logs (container id)
+
+# Access image with bash
+- docker exec -it <containerid> bash

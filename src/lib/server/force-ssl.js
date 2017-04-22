@@ -1,9 +1,11 @@
+const isUsingHTTPS = ({ headers }) => headers['x-forwarded-proto'] === 'https';
+const isLocalhost = host => host.includes('localhost');
+
 const forceSSL = (req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'https' &&
-        process.env.NODE_ENV === 'production' &&
-        !req.get('Host').includes('localhost')) {
+    if (!isUsingHTTPS(req) && !isLocalhost(req.get('Host')) && !__DEV__) {
         return res.redirect(['https://', req.get('Host'), req.url].join(''));
     }
+
     return next();
 };
 

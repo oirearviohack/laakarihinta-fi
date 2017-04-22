@@ -13,9 +13,8 @@
     "author": "Joona Rahko & David Reid",
     "license": "MIT",
     "scripts": {
-        "start": "yarn build && yarn start:prod",
+        "start": "yarn build && better-npm-run start:prod",
         "start:dev": "better-npm-run start:dev",
-        "start:prod": "better-npm-run start:prod",
         "build": "yarn build:client && yarn build:server",
         "build:client": "yarn clean:client && better-npm-run build:client",
         "build:server": "yarn clean:server && better-npm-run build:server",
@@ -31,20 +30,12 @@
         "clean:test": "better-npm-run clean:test"
     },
     "betterScripts": {
-        "start": {
-            "command": "node ./index.js",
-            "env": {
-                "NODE_PATH": "./src",
-                "NODE_ENV": "production",
-                "PORT": 8080
-            }
-        },
         "start:dev": {
             "command": "nodemon ./index.js --exec babel-node",
             "env": {
                 "NODE_PATH": "./src",
                 "NODE_ENV": "development",
-                "PORT": 8080
+                "PORT": 3000
             }
         },
         "start:prod": {
@@ -104,8 +95,6 @@
         "lodash": "^4.17.4",
         "morgan": "^1.8.1",
         "opn": "^4.0.2",
-        "pm2": "^2.4.5",
-        "pm2-logrotate": "^2.2.0",
         "prop-types": "^15.5.8",
         "qs": "^6.4.0",
         "react": "^15.5.4",

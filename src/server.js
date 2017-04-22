@@ -21,12 +21,12 @@ app.use(forceSSL);
 app.use(helmet());
 app.use(hpp());
 app.use(compression());
-app.use(logging());
+app.use(logging()); // TODO: What is the best way for us to do logging?
 
 if (__DEV__) enableDevelopmentSettings(app);
 
 app.use(favicon(path.join(process.cwd(), './build/public/favicon.ico')));
-app.use(express.static(path.join(process.cwd(), './build/public')));
+app.use(express.static(path.join(process.cwd(), './build/public'), { maxAge: '7d' }));
 app.use('/api', apiRouter);
 app.use(wrap(renderHandler));
 app.use(logErrors);
