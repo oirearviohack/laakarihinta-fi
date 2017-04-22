@@ -1,21 +1,15 @@
 import React from 'react';
 import Promise from 'bluebird';
 import HttpStatus from 'http-status-codes';
-import { StaticRouter, matchPath } from 'react-router-dom';
+import { matchRoutes } from 'react-router-config';
+import { StaticRouter } from 'react-router-dom';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import configureStore from '../../redux/store';
+import routes from '../../routes';
 import App from '../../components/app/app';
 import Html from '../../components/html/html';
 
-
-const routes = [
-    {
-        path: '/',
-        component: App,
-        exact: true
-    }
-];
 
 const renderHtml = (store, htmlContent) => {
     const html = renderToStaticMarkup(<Html store={store} htmlContent={htmlContent} />);
@@ -30,23 +24,11 @@ const renderHandler = async (req, res, next) => {
         return res.send(renderHtml(store));
     }
 
-    const routeMatches = routes.reduce((matches, route) => {
-        const match = matchPath(req.url, route.path, route);
-        if (match) {
-            matches.push({
-                route,
-                match,
-                promise: route.component.fetchData ? route.component.fetchData(store, match.params) : Promise.resolve(null)
-            });
-        }
-        return matches;
-    }, []);
+    const routePromises = matchRoutes(routes, req.url)
+        .filter(({ route }) => route.component && route.component.fetchData)
+        .map(({ route, match }) => route.component.fetchData(store, match.params));
 
-    try {
-        await Promise.all(routeMatches.map(match => match.promise));
-    } catch (err) {
-        next(err);
-    }
+    await Promise.all(routePromises);
 
     const routerContext = {};
     const content = renderToString(

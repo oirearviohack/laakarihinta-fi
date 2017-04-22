@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from './redux/store';
 
 
-// Get initial state from server-side rendering
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
 const mountNode = document.getElementById('app');
@@ -26,7 +25,7 @@ const renderApp = () => {
     );
 };
 
-// Enable hot reload by react-hot-loader
+
 if (module.hot) {
     const reRenderApp = () => {
         try {

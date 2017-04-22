@@ -6,6 +6,7 @@
 
 # To Run (mirrors port 8080 in port 9000)
 - docker run -p 9000:8080 -d wwwonderful/aws-docker
+- docker run -p 9000:8080 591556483586.dkr.ecr.eu-west-2.amazonaws.com/wwwonderful/aws-docker:latest
 
 # To push image to AWS 
 - Commands can be found in https://eu-west-2.console.aws.amazon.com/ecs/home?region=eu-west-2#/repositories/create/new

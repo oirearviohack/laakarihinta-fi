@@ -7,13 +7,17 @@ import path from 'path';
 import { port } from './config';
 import apiRouter from './server/api-router';
 import logging from './lib/server/logging';
+import forceSSL from './lib/server/force-ssl';
 import healthCheck from './lib/server/health-check';
 import enableDevelopmentSettings from './lib/server/enable-development-settings';
 import renderHandler from './lib/server/render-handler';
+import wrap from './lib/server/wrap';
+import { logErrors, catchAllErrorHandler, clientErrorHandler } from './lib/server/error-handlers';
 
 
 const app = express();
 app.use(healthCheck);
+app.use(forceSSL);
 app.use(helmet());
 app.use(hpp());
 app.use(compression());
@@ -24,7 +28,11 @@ if (__DEV__) enableDevelopmentSettings(app);
 app.use(favicon(path.join(process.cwd(), './build/public/favicon.ico')));
 app.use(express.static(path.join(process.cwd(), './build/public')));
 app.use('/api', apiRouter);
-app.use(renderHandler);
+app.use(wrap(renderHandler));
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(catchAllErrorHandler);
+
 
 app.listen(port, (error) => {
     if (error) throw error;

@@ -15,5 +15,5 @@ export const clientErrorHandler = (err, req, res, next) => {
 };
 
 export const catchAllErrorHandler = (err, req, res, next) => { // eslint-disable-line no-unused-vars
-    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR); // TODO: Render something awesome when our server fails :D
 };
