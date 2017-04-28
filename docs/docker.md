@@ -25,3 +25,6 @@
 
 # Access image with bash
 - docker exec -it <containerid> bash
+
+# Remove old images
+- docker images -q --filter "dangling=true" | xargs docker rmi  
