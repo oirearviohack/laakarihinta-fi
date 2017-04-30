@@ -1,10 +1,10 @@
-image: node:6.9.1
+image: node:7.9.0
 
 services:
     - docker:dind
 
 variables:
-    CONTAINER_IMAGE: 91556483586.dkr.ecr.eu-west-2.amazonaws.com/wwwonderful/aws-docker
+    CONTAINER_IMAGE: 'container-image-url'
 
 stages:
   - build
@@ -27,6 +27,8 @@ deploy:
     image: python:latest
     script:
         - pip install awscli
+    only:
+        - master
 
 cache:
   untracked: true
