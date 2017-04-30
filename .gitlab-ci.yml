@@ -36,6 +36,6 @@ deploy:
         - master
 
 cache:
-  untracked: true
-  paths:
-    - node_modules/
+    untracked: true
+    paths:
+        - node_modules/
