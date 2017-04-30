@@ -7,7 +7,6 @@ import path from 'path';
 import forceDomain from 'forcedomain';
 import { port } from './config';
 import apiRouter from './server/api-router';
-import logging from './lib/server/logging';
 import healthCheck from './lib/server/health-check';
 import enableDevelopmentSettings from './lib/server/enable-development-settings';
 import renderHandler from './lib/server/render-handler';
