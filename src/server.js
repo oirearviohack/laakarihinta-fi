@@ -21,7 +21,7 @@ app.use(forceDomain({ hostname: 'wwwonderful.com', protocol: 'https' }));
 app.use(helmet());
 app.use(hpp());
 app.use(compression());
-app.use(logging()); // TODO: What is the best way for us to do logging?
+// app.use(logging()); // TODO: What is the best way for us to do logging? Right now builds up inside instance (not good)
 
 if (__DEV__) enableDevelopmentSettings(app);
 
