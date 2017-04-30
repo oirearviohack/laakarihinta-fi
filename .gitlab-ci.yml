@@ -8,7 +8,8 @@ variables:
 
 stages:
   - build
-  - test
+  - testing
+  - deploy
 
 build:
   stage: build
@@ -17,10 +18,15 @@ build:
     - yarn install
     - yarn install -g mocha istanbul aws-cli
 
-run-tests:
-  stage: test
+testing:
+  stage: testing
   script:
     - yarn test
+
+deploy:
+    image: python:latest
+    script:
+        - pip install awscli
 
 cache:
   untracked: true
