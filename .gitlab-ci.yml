@@ -1,0 +1,34 @@
+image: docker:latest
+
+services:
+    - docker:dind
+
+variables:
+    CONTAINER_IMAGE: 91556483586.dkr.ecr.eu-west-2.amazonaws.com/wwwonderful/aws-docker
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - pip install awscli
+    - yarn install
+    - yarn install -g mocha istanbul aws-cli
+
+run-tests:
+  stage: test
+  script:
+    - npm run coverage
+
+run-lint:
+  stage: test
+  script:
+    - npm run lint
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
