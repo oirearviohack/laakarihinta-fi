@@ -9,7 +9,6 @@ variables:
 stages:
   - build
   - test
-  - deploy
 
 build:
   stage: build
@@ -21,12 +20,7 @@ build:
 run-tests:
   stage: test
   script:
-    - npm run coverage
-
-run-lint:
-  stage: test
-  script:
-    - npm run lint
+    - yarn test
 
 cache:
   untracked: true
