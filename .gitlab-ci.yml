@@ -7,15 +7,25 @@ variables:
     CONTAINER_IMAGE: 'container-image-url'
 
 stages:
-  - test
-  - deploy
+    - build
+    - test
+    - deploy
+
+build:
+    stage: build
+    script:
+        - yarn install
+        - yarn global add -g mocha istanbul
+        - yarn build
+    artifacts:
+    paths:
+        - node_modules/
+        - dist/
 
 test:
-  stage: test
-  script:
-    - yarn install
-    - yarn global add -g mocha istanbul
-    - yarn test
+    stage: test
+    script:
+        - yarn test
 
 deploy:
     stage: deploy
