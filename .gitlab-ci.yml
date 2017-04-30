@@ -18,9 +18,9 @@ build:
         - yarn global add -g mocha istanbul
         - yarn build
     artifacts:
-    paths:
-        - node_modules/
-        - dist/
+        paths:
+            - node_modules/
+            - dist/
 
 test:
     stage: test
