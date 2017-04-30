@@ -14,9 +14,8 @@ stages:
 build:
   stage: build
   script:
-    - pip install awscli
     - yarn install
-    - yarn install -g mocha istanbul aws-cli
+    - yarn install -g mocha istanbul
 
 testing:
   stage: testing
