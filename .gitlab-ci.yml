@@ -15,7 +15,7 @@ build:
   stage: build
   script:
     - yarn install
-    - yarn install -g mocha istanbul
+    - yarn global add -g mocha istanbul
 
 testing:
   stage: testing
