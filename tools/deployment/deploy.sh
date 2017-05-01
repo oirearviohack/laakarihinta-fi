@@ -3,9 +3,6 @@ set -e
 set -u
 set -o pipefail
 
-curl -L -o ~/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5rc1/jq-linux-x86_64-static
-chmod +x ~/bin/jq
-
 JQ="jq --raw-output --exit-status"
 
 configure_aws_cli(){
