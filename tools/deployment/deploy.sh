@@ -88,7 +88,9 @@ display_usage() {
 
 version=${1:-}
 if [ -n "$version" ]; then
-    run_deployment
+    echo "Hello deploy"
+    # run_deployment
 else
-    display_usage
+    echo "Hello deploy"
+    # display_usage
 fi
