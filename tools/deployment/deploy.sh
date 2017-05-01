@@ -26,7 +26,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-			"name": "Wwwonderful-container",
+			"name": "Wwwonderful-task",
 			"image": "%s:latest",
 			"essential": true,
 			"memory": 850,
