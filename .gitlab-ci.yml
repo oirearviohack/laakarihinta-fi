@@ -1,8 +1,5 @@
 image: node:7.9.0
 
-services:
-    - docker:dind
-
 variables:
     AWS_REPO_URI: 'repo-uri'
 
@@ -29,12 +26,15 @@ test:
 
 deploy:
     stage: deploy
-    image: python:latest
+    image: docker:latest
+    services:
+        - docker:dind
     script:
-        - pip install awscli
-        - docker build -t $AWS_REPO_URI
-        - docker run -d -p 8080:8080 --name wwwonderful-web $AWS_REPO_URI
+        - docker build -t wwwonderful/aws-docker .
+        - docker run -d -p 8080:8080 wwwonderful/aws-docker
         - curl --retry 10 --retry-delay 5 localhost:8080/health-check | grep "Ok!"
+        - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
+        - docker push $AWS_REPO_URI:latest
     only:
         - master
 
