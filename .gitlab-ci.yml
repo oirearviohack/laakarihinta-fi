@@ -37,8 +37,8 @@ deploy:
     script:
         - curl -L -o /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5rc1/jq-linux-x86_64-static
         - chmod a+x /usr/bin/jq
-        # - docker build -t wwwonderful/aws-docker .
-        # - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
+        - docker build -t wwwonderful/aws-docker .
+        - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
         - chmod +x ./tools/deployment/deploy.sh
         - ./tools/deployment/deploy.sh
     only:
