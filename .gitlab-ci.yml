@@ -35,8 +35,8 @@ deploy:
     services:
         - docker:dind
     script:
-        - docker build -t wwwonderful/aws-docker .
-        - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
+       # - docker build -t wwwonderful/aws-docker .
+       # - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
         - ls
         - sh ./tools/deployment/deploy.sh
     only:
