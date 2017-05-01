@@ -34,9 +34,6 @@ deploy:
         - docker:dind
     script:
         - docker build -t wwwonderful/aws-docker .
-        - docker run -d -p 8080:8080 wwwonderful/aws-docker
-        - sleep 45 # Race condition
-        - curl -I --retry 10 --retry-delay 5 http://localhost:8080/health-check
         - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
         - ./tools/deployment/deploy.sh
     only:
