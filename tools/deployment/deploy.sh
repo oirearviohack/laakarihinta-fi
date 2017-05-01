@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-# more bash-friendly output for jq
+set -e
+set -u
+set -o pipefail
+
 JQ="jq --raw-output --exit-status"
+
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 sudo python get-pip.py
 sudo pip install awscli
