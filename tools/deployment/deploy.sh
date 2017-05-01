@@ -5,10 +5,6 @@ set -o pipefail
 
 JQ="jq --raw-output --exit-status"
 
-curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-python get-pip.py
-pip install awscli
-
 configure_aws_cli(){
 	aws --version
 	aws configure set default.region eu-west-2
