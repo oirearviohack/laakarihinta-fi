@@ -27,6 +27,9 @@ test:
 deploy:
     stage: deploy
     image: docker:latest
+    variables:
+        - DOCKER_PRIVILEGED: 'true'
+          DOCKER_DRIVER: 'overlay'
     services:
         - docker:dind
     script:
