@@ -48,7 +48,7 @@ make_task_def(){
 }
 
 push_ecr_image(){
-	eval $(aws ecr get-login --region eu-west-2)
+	$(aws ecr get-login --region eu-west-2)
 	docker push $AWS_REPO_URI:latest
 }
 
