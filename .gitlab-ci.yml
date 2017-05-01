@@ -35,7 +35,7 @@ deploy:
     services:
         - docker:dind
     script:
-        - curl -L -o https://github.com/stedolan/jq/releases/download/jq-1.5rc1/jq-linux-x86_64-static
+        - curl -L https://github.com/stedolan/jq/releases/download/jq-1.5rc1/jq-linux-x86_64-static
         - chmod +x jq
         # - docker build -t wwwonderful/aws-docker .
         # - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
