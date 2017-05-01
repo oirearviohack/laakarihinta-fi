@@ -4,7 +4,7 @@ services:
     - docker:dind
 
 variables:
-    CONTAINER_IMAGE: 'container-image-url'
+    AWS_REPO_URI: 'repo-uri'
 
 stages:
     - build
@@ -32,6 +32,9 @@ deploy:
     image: python:latest
     script:
         - pip install awscli
+        - docker build -t $AWS_REPO_URI
+        - docker run -d -p 8080:8080 --name wwwonderful-web $AWS_REPO_URI
+        - curl --retry 10 --retry-delay 5 localhost:8080/health-check | grep "Ok!"
     only:
         - master
 
