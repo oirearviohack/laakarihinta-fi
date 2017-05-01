@@ -28,7 +28,7 @@ stages:
 
 deploy:
     stage: deploy
-    image: garland/aws-cli-docker:latest
+    image: ekino/dind-aws
     variables:
         DOCKER_PRIVILEGED: 'true'
         DOCKER_DRIVER: 'overlay'
