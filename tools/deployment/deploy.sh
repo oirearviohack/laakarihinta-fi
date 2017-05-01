@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 set -u
 set -o pipefail
@@ -47,7 +47,7 @@ make_task_def(){
 	task_def=$(printf "$task_template" $AWS_REPO_URI)
 }
 
-push_ecr_image(){
+push_ecr_image() {
 	$(aws ecr get-login --region eu-west-2)
 	docker push $AWS_REPO_URI:latest
 }
