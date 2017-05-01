@@ -28,7 +28,7 @@ stages:
 
 deploy:
     stage: deploy
-    image: docker:latest
+    image: garland/aws-cli-docker:latest
     variables:
         DOCKER_PRIVILEGED: 'true'
         DOCKER_DRIVER: 'overlay'
