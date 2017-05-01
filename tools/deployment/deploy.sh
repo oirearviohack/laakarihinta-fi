@@ -1,29 +1,20 @@
 #!/usr/bin/env bash
-set -e
-set -u
-set -o pipefail
-
+# more bash-friendly output for jq
 JQ="jq --raw-output --exit-status"
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+sudo python get-pip.py
+sudo pip install awscli
 
-register_definition() {
-    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family --region eu-west-2 | $JQ '.taskDefinition.taskDefinitionArn'); then
-        echo "Task definition revision: $revision"
-    else
-        echo "Failed to register task definition"
-        return 1
-    fi
-}
-
-create_task_def() {
-    jq_template=".taskDefinition.containerDefinitions | .[] | del(.image) + {image: \"591556483586.dkr.ecr.eu-west-2.amazonaws.com/wwwonderful/aws-docker:latest\"} | [.]"
-    jq_instructions=$(printf "$jq_template" $version)
-    task_def=$(aws ecs describe-task-definition --task-definition $family --region eu-west-2 | jq "$jq_instructions")
+configure_aws_cli(){
+	aws --version
+	aws configure set default.region eu-west-2
+	aws configure set default.output json
 }
 
 deploy_cluster() {
-    host_port=80
     family="wwwonderful-cluster"
-    create_task_def
+
+    make_task_def
     register_definition
     if [[ $(aws ecs update-service --cluster wwwonderful-cluster --service aws-docker-cluster-service --task-definition $revision --region eu-west-2 | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
@@ -31,66 +22,57 @@ deploy_cluster() {
         return 1
     fi
 
-    return 0
-}
-
-fetch_image_tags() {
-    separator=$'\n'
-    image_listing=$(aws ecr list-images --repository-name wwwonderful/aws-docker --region eu-west-2)
-    content=$($JQ ".imageIds | .[] | .imageTag" <<< $image_listing)
-    image_tags=$content
-
-    while next_token=$($JQ ".nextToken" <<< $image_listing); do
-        image_listing=$(aws ecr list-images --repository-name wwwonderful/aws-docker --next-token "$next_token" --region eu-west-2)
-        content=$($JQ ".imageIds | .[] | .imageTag" <<< $image_listing)
-        image_tags=$image_tags$separator$content
-    done
-}
-
-find_image() {
-    fetch_image_tags
-    for hash in $image_tags; do
-        if [ "$version" == "$hash" ]; then
+    # wait for older revisions to disappear
+    # not really necessary, but nice for demos
+    for attempt in {1..30}; do
+        if stale=$(aws ecs describe-services --cluster wwwonderful-cluster --services aws-docker-cluster-service | \
+                       $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"); then
+            echo "Waiting for stale deployments:"
+            echo "$stale"
+            sleep 5
+        else
+            echo "Deployed!"
             return 0
         fi
     done
+    echo "Service update took too long."
     return 1
 }
 
-run_deployment() {
-    echo "Searching deployable image for version $version from repository."
-    if find_image; then
-        echo -n "You are about to deploy version $version to production. Are you sure you want to continue? [yN]? "
-        read confirmation
-        if [ "$confirmation" == "y" ]; then
-            echo "Continuing..."
-            if deploy_cluster; then
-                exit 0
-            else
-                echo "Deployment failed."
-                exit 1
-            fi
-        else
-            echo "Interrupted"
-            exit 1
-        fi
-        exit 0
+make_task_def(){
+	task_template='[
+		{
+			"name": "Wwwonderful-container",
+			"image": "%s:latest",
+			"essential": true,
+			"memory": 850,
+			"cpu": 0,
+			"portMappings": [
+				{
+					"containerPort": 8080,
+					"hostPort": 80
+				}
+			]
+		}
+	]'
+
+	task_def=$(printf "$task_template" $AWS_REPO_URI)
+}
+
+push_ecr_image(){
+	eval $(aws ecr get-login --region eu-west-2)
+	docker push $AWS_REPO_URI:latest
+}
+
+register_definition() {
+    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+        echo "Revision: $revision"
     else
-        echo "Docker image for version $version not found in repository. Exiting."
-        exit 1
+        echo "Failed to register task definition"
+        return 1
     fi
 }
 
-display_usage() {
-    echo "Usage: deploy-production.sh <version>"
-    echo "<version> Is the hash of the commit to be deployed to production"
-}
-
-version=${1:-}
-if [ -n "$version" ]; then
-    echo "Hello deploy"
-    # run_deployment
-else
-    echo "Hello deploy"
-    # display_usage
-fi
+configure_aws_cli
+push_ecr_image
+deploy_cluster
