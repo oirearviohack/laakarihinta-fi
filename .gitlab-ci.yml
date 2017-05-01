@@ -37,6 +37,7 @@ deploy:
     script:
        # - docker build -t wwwonderful/aws-docker .
        # - docker tag wwwonderful/aws-docker:latest $AWS_REPO_URI:latest
+        - chmod +x ./tools/deployment/deploy.sh
         - sh ./tools/deployment/deploy.sh
     only:
         - master
