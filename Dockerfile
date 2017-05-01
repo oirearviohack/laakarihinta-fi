@@ -19,7 +19,6 @@ COPY .eslintrc /usr/src/wwwonderful-web
 COPY .stylelintrc /usr/src/wwwonderful-web
 COPY index.js /usr/src/wwwonderful-web
 COPY test-config.js /usr/src/wwwonderful-web
-COPY yarn.lock /usr/src/wwwonderful-web
 
 RUN ["yarn", "install"]
 
