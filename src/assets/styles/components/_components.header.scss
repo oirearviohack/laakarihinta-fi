@@ -1,0 +1,53 @@
+.c-header {
+    align-items: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.c-header__logo {
+    height: 20px;
+}
+
+.c-header__nav {
+    @include mq($from: xs, $until: s) {
+        display: none;
+    }
+
+    @include mq($from: s) {
+        display: block;
+    }
+}
+
+.c-header__burger {
+    background-color: red;
+    height: 30px;
+    width: 30px;
+
+    @include mq($from: xs, $until: s) {
+        display: block;
+    }
+
+    @include mq($from: s) {
+        display: none;
+    }
+}
+
+.c-header__nav-item {
+    color: #4a4a4a;
+    margin-right: 30px;
+    text-decoration: none;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.c-header__nav-item--featured {
+    background-color: #0ab5a1;
+    border-radius: 20px;
+    color: #fff;
+    padding: 6px 15px;
+}

@@ -33,6 +33,7 @@ const Html = ({ store, htmlContent }) => {
                         type="text/css"
                   />,
                 )}
+                <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,500" rel="stylesheet" />
             </head>
             <body>
                 <div id="app" dangerouslySetInnerHTML={{ __html: htmlContent || '' }} />
