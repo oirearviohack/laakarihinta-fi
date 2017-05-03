@@ -5,7 +5,7 @@ const CSSModules = false;
 const eslint = true;
 
 // Disable style lint error terminating here
-const stylelint = true;
+const stylelint = false;
 
 // Register vendors here
 const vendor = [

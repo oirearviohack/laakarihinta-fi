@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import Navbar from '../navbar/navbar';
+import Header from '../header/header';
 import Footer from '../footer/footer';
 import localeActions from '../locale/locale-actions';
 
@@ -30,7 +30,7 @@ class Main extends Component {
     render() {
         return (
             <div className="o-main-layout">
-                <Navbar />
+                <Header />
                 <div className="o-main-layout__content">
                     {renderRoutes(this.props.route.routes)}
                 </div>

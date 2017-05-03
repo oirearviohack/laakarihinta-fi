@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Navbar = () => (
+const Header = () => (
     <header className="c-header">
-        <Link to="/home">
+        <Link to="/home" className="c-header__logo">
             <img className="c-header__logo" src={require('../../assets/svg/logo-large.svg')} alt="Logo" role="presentation" />
         </Link>
         <nav role="navigation">
@@ -19,4 +19,4 @@ const Navbar = () => (
     </header>
 );
 
-export default Navbar;
+export default Header;
