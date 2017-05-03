@@ -1,5 +1,5 @@
 .c-footer {
-    flex: none;
-    background-color: brown;
+    flex-shrink: 0;
+    background-color: $color-brand;
     height: 40px;
 }

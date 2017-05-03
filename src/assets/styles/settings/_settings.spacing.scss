@@ -1,0 +1,17 @@
+$spacing-xxxs: 3px;
+$spacing-xxs: 6px;
+$spacing-xs: 12px;
+$spacing-sm: 18px;
+$spacing-md: 24px;
+$spacing-lg: 30px;
+$spacing-xlg: 36px;
+$spacing-xxlg: 80px;
+$spacing-variables: (
+    xxs: $spacing-xxs,
+    xs: $spacing-xs,
+    sm: $spacing-sm,
+    md: $spacing-md,
+    lg: $spacing-lg,
+    xlg: $spacing-xlg,
+    xxlg: $spacing-xxlg
+);

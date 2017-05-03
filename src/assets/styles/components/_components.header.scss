@@ -1,10 +1,11 @@
 .c-header {
     align-items: center;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px 0 $color-grey-dark;
     display: flex;
     height: 50px;
     justify-content: space-between;
     padding: 10px;
+    flex-shrink: 0;
 }
 
 .c-header__logo {
@@ -23,13 +24,8 @@
 }
 
 .c-header__burger {
-    background-color: red;
-    height: 30px;
-    width: 30px;
-
-    @include mq($from: xs, $until: s) {
-        display: block;
-    }
+    @include size(30px);
+    display: block;
 
     @include mq($from: s) {
         display: none;
@@ -38,7 +34,7 @@
 
 .c-header__nav-item {
     color: #4a4a4a;
-    margin-right: 30px;
+    margin-right: $spacing-lg;
     text-decoration: none;
 
     &:last-child {
@@ -47,8 +43,8 @@
 }
 
 .c-header__nav-item--featured {
-    background-color: #0ab5a1;
+    background-color: $color-brand;
     border-radius: 20px;
-    color: #fff;
-    padding: 6px 15px;
+    color: $color-white;
+    padding: $spacing-xxs $spacing-sm;
 }

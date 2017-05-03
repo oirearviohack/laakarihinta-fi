@@ -1,0 +1,13 @@
+// Monochrome
+$color-white: #fff;
+$color-grey-light: #ececec;
+$color-grey: #dadada;
+$color-grey-dark: #b3b1b2;
+$color-grey-darker: #706e6f;
+$color-black: #000;
+
+//Brand
+$color-brand: #0ab5a1;
+$color-brand-light: lighten($color-brand, 15);
+$color-brand-lighter: lighten($color-brand, 30);
+$color-brand-lightest: lighten($color-brand, 45);

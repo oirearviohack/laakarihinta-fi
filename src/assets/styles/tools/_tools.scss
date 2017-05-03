@@ -1,2 +1,5 @@
+$output-bourbon-deprecation-warnings: false;
+
 @import '~sass-mq/mq';
 @import '~bootstrap/scss/mixins';
+@import '~bourbon/app/assets/stylesheets/bourbon';

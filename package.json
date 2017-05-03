@@ -126,6 +126,7 @@
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-0": "^6.24.1",
         "better-npm-run": "0.0.15",
+        "bourbon": "^4.3.4",
         "chai": "^3.5.0",
         "css-loader": "^0.28.0",
         "enzyme": "^2.8.2",
