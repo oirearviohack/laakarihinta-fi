@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -11,7 +12,7 @@ class Header extends Component {
             isMounted: false
         };
         this.setHeaderRef = ::this.setHeaderRef;
-        this.setBodyPadding = ::this.setBodyPadding;
+        this.setBodyPadding = _.debounce(::this.setBodyPadding, 1000, { leading: true });
     }
 
     componentDidMount() {
