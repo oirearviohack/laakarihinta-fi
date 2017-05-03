@@ -1,169 +1,170 @@
 {
-    "name": "wwwonderful-web",
-    "version": "1.0.0",
-    "description": "Website for Wwwonderful Ltd.",
-    "main": "index.js",
-    "engines": {
-        "node": ">=5.0 <8",
-        "npm": ">=3.0 <5"
+  "name": "wwwonderful-web",
+  "version": "1.0.0",
+  "description": "Website for Wwwonderful Ltd.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=5.0 <8",
+    "npm": ">=3.0 <5"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Joona Rahko & David Reid",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn build && better-npm-run start:prod",
+    "start:dev": "better-npm-run start:dev",
+    "build": "yarn build:client && yarn build:server",
+    "build:client": "yarn clean:client && better-npm-run build:client",
+    "build:server": "yarn clean:server && better-npm-run build:server",
+    "lint": "yarn lint:js && yarn lint:style",
+    "lint:js": "better-npm-run lint:js",
+    "lint:style": "better-npm-run lint:style",
+    "test": "better-npm-run test",
+    "test:watch": "better-npm-run test:watch",
+    "test:coverage": "better-npm-run test:coverage",
+    "clean:all": "yarn clean:client && yarn clean:server && yarn clean:test",
+    "clean:client": "better-npm-run clean:client",
+    "clean:server": "better-npm-run clean:server",
+    "clean:test": "better-npm-run clean:test"
+  },
+  "betterScripts": {
+    "start:dev": {
+      "command": "nodemon ./index.js --exec babel-node",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "development",
+        "PORT": 3000
+      }
     },
-    "keywords": [
-        "react"
-    ],
-    "author": "Joona Rahko & David Reid",
-    "license": "MIT",
-    "scripts": {
-        "start": "yarn build && better-npm-run start:prod",
-        "start:dev": "better-npm-run start:dev",
-        "build": "yarn build:client && yarn build:server",
-        "build:client": "yarn clean:client && better-npm-run build:client",
-        "build:server": "yarn clean:server && better-npm-run build:server",
-        "lint": "yarn lint:js && yarn lint:style",
-        "lint:js": "better-npm-run lint:js",
-        "lint:style": "better-npm-run lint:style",
-        "test": "better-npm-run test",
-        "test:watch": "better-npm-run test:watch",
-        "test:coverage": "better-npm-run test:coverage",
-        "clean:all": "yarn clean:client && yarn clean:server && yarn clean:test",
-        "clean:client": "better-npm-run clean:client",
-        "clean:server": "better-npm-run clean:server",
-        "clean:test": "better-npm-run clean:test"
+    "start:prod": {
+      "command": "node ./index.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "production",
+        "PORT": 8080
+      }
     },
-    "betterScripts": {
-        "start:dev": {
-            "command": "nodemon ./index.js --exec babel-node",
-            "env": {
-                "NODE_PATH": "./src",
-                "NODE_ENV": "development",
-                "PORT": 3000
-            }
-        },
-        "start:prod": {
-            "command": "node ./index.js",
-            "env": {
-                "NODE_PATH": "./src",
-                "NODE_ENV": "production",
-                "PORT": 8080
-            }
-        },
-        "build:client": {
-            "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.client.js",
-            "env": {
-                "NODE_ENV": "production"
-            }
-        },
-        "build:server": {
-            "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.server.js"
-        },
-        "lint:js": {
-            "command": "eslint ./src ./tools ./index.js"
-        },
-        "lint:style": {
-            "command": "stylelint \"./src/**/*.scss\" --syntax scss"
-        },
-        "test": {
-            "command": "mocha --require test-config.js --require babel-polyfill --compilers js:babel-register \"./src/**/**.spec.js\""
-        },
-        "test:watch": {
-            "command": "mocha --require test-config.js --require babel-polyfill --compilers js:babel-register \"./src/**/**.spec.js\" --watch"
-        },
-        "test:coverage": {
-            "command": "istanbul cover -x \"**/__tests__/**\" node_modules/mocha/bin/_mocha -- --require test-config.js --require babel-polyfill --compilers js:babel-register --recursive \"./src/**/*.spec.js\""
-        },
-        "clean:client": {
-            "command": "rimraf ./build/public/assets"
-        },
-        "clean:server": {
-            "command": "rimraf ./build/server.js ./build/server.js.map"
-        },
-        "clean:test": {
-            "command": "rimraf ./coverage"
-        }
+    "build:client": {
+      "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.client.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
-    "dependencies": {
-        "babel-core": "^6.24.1",
-        "babel-runtime": "^6.23.0",
-        "bluebird": "^3.5.0",
-        "body-parser": "^1.17.1",
-        "bootstrap": "4.0.0-alpha.6",
-        "compression": "^1.6.2",
-        "express": "^4.15.2",
-        "forcedomain": "^0.8.1",
-        "helmet": "^3.5.0",
-        "hpp": "^0.2.2",
-        "http-status-codes": "^1.1.6",
-        "isomorphic-fetch": "^2.2.1",
-        "lodash": "^4.17.4",
-        "morgan": "^1.8.1",
-        "opn": "^4.0.2",
-        "prop-types": "^15.5.8",
-        "qs": "^6.4.0",
-        "react": "^15.5.4",
-        "react-dom": "^15.5.4",
-        "react-helmet": "^5.0.3",
-        "react-hot-loader": "^3.0.0-beta.6",
-        "react-intl": "^2.2.3",
-        "react-redux": "^5.0.4",
-        "react-router-config": "^1.0.0-beta.3",
-        "react-router-dom": "^4.1.1",
-        "redbox-react": "^1.3.6",
-        "redux": "^3.6.0",
-        "redux-thunk": "^2.2.0",
-        "serialize-javascript": "^1.3.0",
-        "serve-favicon": "^2.4.2",
-        "spdy": "^3.4.4",
-        "webpack-isomorphic-tools": "^3.0.2"
+    "build:server": {
+      "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.server.js"
     },
-    "devDependencies": {
-        "autoprefixer": "^6.7.7",
-        "babel-cli": "^6.24.1",
-        "babel-eslint": "^7.2.2",
-        "babel-loader": "^6.4.1",
-        "babel-plugin-istanbul": "^4.1.1",
-        "babel-plugin-lodash": "^3.2.11",
-        "babel-plugin-transform-runtime": "^6.23.0",
-        "babel-preset-latest": "^6.24.1",
-        "babel-preset-react": "^6.24.1",
-        "babel-preset-stage-0": "^6.24.1",
-        "better-npm-run": "0.0.15",
-        "bourbon": "^4.3.4",
-        "chai": "^3.5.0",
-        "css-loader": "^0.28.0",
-        "enzyme": "^2.8.2",
-        "eslint": "^3.19.0",
-        "eslint-config-airbnb": "^14.1.0",
-        "eslint-loader": "^1.7.1",
-        "eslint-plugin-import": "^2.2.0",
-        "eslint-plugin-jsx-a11y": "^4.0.0",
-        "eslint-plugin-react": "^6.10.3",
-        "extract-text-webpack-plugin": "^2.1.0",
-        "file-loader": "^0.11.1",
-        "image-webpack-loader": "^3.3.0",
-        "imports-loader": "^0.7.1",
-        "istanbul": "1.1.0-alpha.1",
-        "jsdom": "^9.12.0",
-        "mocha": "^3.2.0",
-        "node-sass": "^4.5.2",
-        "nodemon": "^1.11.0",
-        "normalize-scss": "^6.0.0",
-        "postcss": "^5.2.17",
-        "postcss-loader": "^1.3.3",
-        "precss": "^1.4.0",
-        "react-addons-test-utils": "^15.5.1",
-        "react-test-renderer": "^15.5.4",
-        "redux-mock-store": "^1.2.3",
-        "rimraf": "^2.6.1",
-        "sass-loader": "^6.0.3",
-        "sass-mq": "^3.3.2",
-        "sinon": "^2.1.0",
-        "style-loader": "^0.16.1",
-        "stylelint": "^7.10.1",
-        "stylelint-config-standard": "^16.0.0",
-        "stylelint-webpack-plugin": "^0.7.0",
-        "url-loader": "^0.5.8",
-        "webpack": "^2.4.1",
-        "webpack-dev-middleware": "^1.10.1",
-        "webpack-hot-middleware": "^2.18.0",
-        "webpack-node-externals": "^1.5.4"
+    "lint:js": {
+      "command": "eslint ./src ./tools ./index.js"
+    },
+    "lint:style": {
+      "command": "stylelint \"./src/**/*.scss\" --syntax scss"
+    },
+    "test": {
+      "command": "mocha --require test-config.js --require babel-polyfill --compilers js:babel-register \"./src/**/**.spec.js\""
+    },
+    "test:watch": {
+      "command": "mocha --require test-config.js --require babel-polyfill --compilers js:babel-register \"./src/**/**.spec.js\" --watch"
+    },
+    "test:coverage": {
+      "command": "istanbul cover -x \"**/__tests__/**\" node_modules/mocha/bin/_mocha -- --require test-config.js --require babel-polyfill --compilers js:babel-register --recursive \"./src/**/*.spec.js\""
+    },
+    "clean:client": {
+      "command": "rimraf ./build/public/assets"
+    },
+    "clean:server": {
+      "command": "rimraf ./build/server.js ./build/server.js.map"
+    },
+    "clean:test": {
+      "command": "rimraf ./coverage"
     }
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "bootstrap": "4.0.0-alpha.6",
+    "classnames": "^2.2.5",
+    "compression": "^1.6.2",
+    "express": "^4.15.2",
+    "forcedomain": "^0.8.1",
+    "helmet": "^3.5.0",
+    "hpp": "^0.2.2",
+    "http-status-codes": "^1.1.6",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.1",
+    "opn": "^4.0.2",
+    "prop-types": "^15.5.8",
+    "qs": "^6.4.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-helmet": "^5.0.3",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-intl": "^2.2.3",
+    "react-redux": "^5.0.4",
+    "react-router-config": "^1.0.0-beta.3",
+    "react-router-dom": "^4.1.1",
+    "redbox-react": "^1.3.6",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "serialize-javascript": "^1.3.0",
+    "serve-favicon": "^2.4.2",
+    "spdy": "^3.4.4",
+    "webpack-isomorphic-tools": "^3.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-istanbul": "^4.1.1",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "better-npm-run": "0.0.15",
+    "bourbon": "^4.3.4",
+    "chai": "^3.5.0",
+    "css-loader": "^0.28.0",
+    "enzyme": "^2.8.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "image-webpack-loader": "^3.3.0",
+    "imports-loader": "^0.7.1",
+    "istanbul": "1.1.0-alpha.1",
+    "jsdom": "^9.12.0",
+    "mocha": "^3.2.0",
+    "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
+    "normalize-scss": "^6.0.0",
+    "postcss": "^5.2.17",
+    "postcss-loader": "^1.3.3",
+    "precss": "^1.4.0",
+    "react-addons-test-utils": "^15.5.1",
+    "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.3",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.3",
+    "sass-mq": "^3.3.2",
+    "sinon": "^2.1.0",
+    "style-loader": "^0.16.1",
+    "stylelint": "^7.10.1",
+    "stylelint-config-standard": "^16.0.0",
+    "stylelint-webpack-plugin": "^0.7.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-node-externals": "^1.5.4"
+  }
 }

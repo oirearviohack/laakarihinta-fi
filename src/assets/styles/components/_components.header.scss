@@ -1,15 +1,17 @@
 .c-header {
-    @include position(fixed, 0 0 none 0);
     align-items: center;
     background-color: $color-white;
     box-shadow: 0 2px 4px 0 $color-grey-dark;
     display: flex;
     height: 50px;
     justify-content: space-between;
-    padding: 10px;
+    padding: $spacing-xs;
     flex-shrink: 0;
     z-index: $z-index-header;
-    position: fixed;
+
+    &.is-mounted {
+        @include position(fixed, 0 0 none 0);
+    }
 }
 
 .c-header__logo {
