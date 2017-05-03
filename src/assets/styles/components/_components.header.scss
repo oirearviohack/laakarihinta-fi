@@ -1,11 +1,15 @@
 .c-header {
+    @include position(fixed, 0 0 none 0);
     align-items: center;
+    background-color: $color-white;
     box-shadow: 0 2px 4px 0 $color-grey-dark;
     display: flex;
     height: 50px;
     justify-content: space-between;
     padding: 10px;
     flex-shrink: 0;
+    z-index: $z-index-header;
+    position: fixed;
 }
 
 .c-header__logo {
@@ -25,7 +29,10 @@
 
 .c-header__burger {
     @include size(30px);
-    display: block;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 
     @include mq($from: s) {
         display: none;
