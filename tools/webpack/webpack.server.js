@@ -17,6 +17,7 @@ module.exports = {
     output: {
         path: path.join(process.cwd(), './build'),
         filename: '[name].js',
+        publicPath: '/assets/',
         chunkFilename: '[name].[chunkhash:8].chunk.js',
         libraryTarget: 'commonjs2'
     },
