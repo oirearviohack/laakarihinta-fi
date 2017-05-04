@@ -1,0 +1,19 @@
+.c-button {
+    appearance: none;
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    text-transform: uppercase;
+    font-weight: $font-weight-semibold;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3px;
+    height: $component-height-m;
+}
+
+.c-button--primary {
+    border-color: $color-brand;
+}
+
+.c-button--secondary {
+    border-color: $color-white;
+}

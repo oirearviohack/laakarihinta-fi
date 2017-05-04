@@ -1,0 +1,49 @@
+@each $spacing-key, $spacing-value in $spacing-variables {
+    .u-padding-#{$spacing-key}-top {
+        padding-top: $spacing-value !important;
+    }
+
+    .u-padding-#{$spacing-key}-right {
+        padding-right: $spacing-value !important;
+    }
+
+    .u-padding-#{$spacing-key}-bottom {
+        padding-bottom: $spacing-value !important;
+    }
+
+    .u-padding-#{$spacing-key}-left {
+        padding-left: $spacing-value !important;
+    }
+
+    .u-padding-#{$spacing-key} {
+        padding: $spacing-value !important;
+    }
+
+    .u-margin-#{$spacing-key}-top {
+        margin-top: $spacing-value !important;
+    }
+
+    .u-margin-#{$spacing-key}-right {
+        margin-right: $spacing-value !important;
+    }
+
+    .u-margin-#{$spacing-key}-bottom {
+        margin-bottom: $spacing-value !important;
+    }
+
+    .u-margin-#{$spacing-key}-left {
+        margin-left: $spacing-value !important;
+    }
+
+    .u-margin-#{$spacing-key} {
+        margin: $spacing-value !important;
+    }
+}
+
+.u-no-margin {
+    margin: 0 !important;
+}
+
+.u-no-padding {
+    padding: 0 !important;
+}
