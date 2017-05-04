@@ -1,46 +1,12 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 
 
-class Header extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            isMounted: false
-        };
-        this.setHeaderRef = ::this.setHeaderRef;
-        this.setBodyPadding = _.debounce(::this.setBodyPadding, 1000, { leading: true });
-    }
-
-    componentDidMount() {
-        window.addEventListener('resize', this.setBodyPadding);
-        this.setBodyPadding();
-        this.setState({ isMounted: true }); // eslint-disable-line react/no-did-mount-set-state
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.setBodyPadding);
-    }
-
-    setBodyPadding() {
-        document.body.style.paddingTop = `${this.header.clientHeight}px`;
-    }
-
-    setHeaderRef(el) {
-        this.header = el;
-    }
+class Header extends Component { // eslint-disable-line
 
     render() {
-        const headerClass = classNames({
-            'c-header': true,
-            'is-mounted': this.state.isMounted
-        });
-
         return (
-            <header className={headerClass} ref={this.setHeaderRef}>
+            <header className="c-header">
                 <Link to="/home" className="c-header__logo">
                     <img
                         className="c-header__logo"

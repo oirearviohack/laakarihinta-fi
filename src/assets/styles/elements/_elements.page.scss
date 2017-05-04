@@ -4,6 +4,10 @@ html {
     min-height: 100%;
 }
 
+body {
+    padding-top: $header-height;
+}
+
 html,
 body,
 #app,
