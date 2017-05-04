@@ -6,8 +6,9 @@
     font-weight: $font-weight-semibold;
     border-width: 2px;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: $global-border-radius;
     height: $component-height-m;
+    padding: 0 $spacing-sm;
 }
 
 .c-button--primary {

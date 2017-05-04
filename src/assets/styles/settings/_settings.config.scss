@@ -1,3 +1,0 @@
-@function get-config-value($key) {
-    @return map-get($env-config, $key);
-}
