@@ -20,6 +20,20 @@ class ImageController {
         this.router.post('/recognize-image', upload.single('image'), wrap(ImageController.recognizeImage));
     }
 
+    static detectEye(data) {
+      const withClassName = className => {
+        return element => element.class === className;
+      };
+      const classes = data.images[0].classifiers[0].classes;
+      const contactLens = classes.find(withClassName('contact lens')) || {score: 0.0};
+      const opticalDevice = classes.find(withClassName('optical device')) || {score: 0.0};
+      const canthus = classes.find(withClassName('canthus (human eye)')) || {score: 0.0};
+      return (contactLens.score > 0.5) || (opticalDevice.score > 0.5) || (canthus.score > 0.5);
+    }
+
+    static enrichWithAnalysis(result) {
+      return Object.assign({}, {isEye: ImageController.detectEye(result)}, result);
+    }
 
     static resizeBuffer(image, metadata) {
         const largerDimension = metadata.width > metadata.height ? {dimension: 'width', value: metadata.width} : {dimension: 'height', value: metadata.height};
@@ -42,6 +56,7 @@ class ImageController {
               formData.append('image_files', imageBuffer, {contentType: req.file.mimetype});
               return fetch(VISUAL_RECOGNITION_ENTRYPOINT, {method: 'POST', body: formData})
                 .then(response => response.json())
+                .then(ImageController.enrichWithAnalysis)
                 .then(json => res.json(json));
           });
     }
