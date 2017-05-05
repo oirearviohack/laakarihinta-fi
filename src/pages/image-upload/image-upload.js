@@ -40,19 +40,30 @@ class ImageUpload extends Component {
     constructor() {
         super();
         this.state = {
-            file: '',
+            file: null,
             imagePreviewUrl: ''
         };
 
         this.onImageChange = ::this.onImageChange;
     }
 
-    onImageChange() {
-        console.log(this.state);
-        // vaihtaa filun statessa
+    onImageChange(e) {
+        e.preventDefault();
+        const reader = new FileReader();
+        const file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                file,
+                imagePreviewUrl: reader.result
+            });
+        };
+
+        reader.readAsDataURL(file);
     }
 
     render() {
+        const submitDisabled = !this.state.file;
         return (
             <div className="row">
                 <div className="col-s-6 u-margin-sm-bottom">
@@ -77,11 +88,12 @@ class ImageUpload extends Component {
                             onImageChange={this.onImageChange}
                         />
                         <Button
-                            primary
-                            raised
                             className="u-margin-sm-top"
                             onClick={ImageUpload._submitClicked}
                             style={s.submitButton}
+                            disabled={submitDisabled}
+                            primary
+                            raised
                         >
                             <span className="u-margin-xs-right">Lähetä</span>
                             <Send />
