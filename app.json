@@ -1,0 +1,12 @@
+{
+  "name": "Image Symptom Analyzer",
+  "description": "Epic application",
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "redux",
+    "health-care"
+  ],
+  "image": "heroku/nodejs"
+}

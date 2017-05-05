@@ -4,8 +4,7 @@
   "description": "Website for Wwwonderful Ltd.",
   "main": "index.js",
   "engines": {
-    "node": ">=5.0 <8",
-    "npm": ">=3.0 <5"
+    "node": "6.10.3"
   },
   "keywords": [
     "react"
@@ -13,6 +12,7 @@
   "author": "Joona Rahko & David Reid",
   "license": "MIT",
   "scripts": {
+    "preinstall": "npm install pm2 -g",
     "start": "yarn build && better-npm-run start:prod",
     "start:dev": "better-npm-run start:dev",
     "build": "yarn build:client && yarn build:server",
