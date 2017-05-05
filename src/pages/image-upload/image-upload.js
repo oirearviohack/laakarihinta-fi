@@ -18,6 +18,11 @@ const s = {
     },
     controlButton: {
         width: '100%'
+    },
+    instructionImage: {
+        width: '80%',
+        height: 'auto',
+        padding: '20px'
     }
 };
 
@@ -89,6 +94,11 @@ class ImageUpload extends Component {
                         </Typography>
                         <Typography type="body1">
                             <p>1. Ota kuva noin 10cm etäisyydeltä silmistäsi.</p>
+                            <img
+                                src={require('../../assets/images/otakuva.jpg')}
+                                alt="Ota kuva"
+                                style={s.instructionImage}
+                            />
                             <p>2. Klikkaa lähetä.</p>
                             <p>3. Tarkastele tuloksia.</p>
                         </Typography>
