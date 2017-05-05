@@ -17,6 +17,20 @@ const s = {
 };
 
 class ImageUpload extends Component {
+    static _fileUploaded(e) {
+        console.log(e.target);
+        console.log(e.target.files);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            console.log(event.target.result);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    static _submitClicked() {
+        console.log('lol');
+    }
+
     constructor() {
         super();
         this.state = {};
@@ -42,8 +56,8 @@ class ImageUpload extends Component {
                             <FileUpload />
                             <span className="u-margin-xxs-left">Lataa kuva</span>
                         </Typography>
-                        <input type="file" accept="image/*" capture />
-                        <Button raised>Lähetä</Button>
+                        <input type="file" accept="image/*" capture onChange={ImageUpload._fileUploaded} />
+                        <Button raised onClick={ImageUpload._submitClicked}>Lähetä</Button>
                     </Paper>
                 </div>
             </div>
