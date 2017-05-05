@@ -8,22 +8,14 @@ class Header extends Component { // eslint-disable-line
         return (
             <header className="c-header">
                 <Link to="/home" className="c-header__logo">
-                    <img
-                        className="c-header__logo"
-                        src={require('../../assets/svg/logo-large.svg')}
-                        alt="Logo"
-                        role="presentation"
-                    />
+                    Logo
                 </Link>
                 <nav role="navigation">
                     <div className="c-header__burger">
                         <i className="fa fa-bars" aria-hidden="true" />
                     </div>
                     <div className="c-header__nav">
-                        <Link className="c-header__nav-item" to="/about">About Us</Link>
-                        <Link className="c-header__nav-item" to="/packages">Packages</Link>
-                        <Link className="c-header__nav-item" to="/blog">Blog</Link>
-                        <Link className="c-header__nav-item c-header__nav-item--featured" to="/contact">Enquire</Link>
+                        <Link className="c-header__nav-item" to="/home">Hei</Link>
                     </div>
                 </nav>
             </header>
