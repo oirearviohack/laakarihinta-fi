@@ -15,7 +15,7 @@
     "preinstall": "npm install pm2 -g",
     "start": "yarn build && better-npm-run start:prod",
     "start:dev": "better-npm-run start:dev",
-    "start:heroku": "yarn build && better-npm-run start:prod-pm2",
+    "start:heroku": "yarn build && better-npm-run start:heroku",
     "build": "yarn build:client && yarn build:server",
     "build:client": "yarn clean:client && better-npm-run build:client",
     "build:server": "yarn clean:server && better-npm-run build:server",
@@ -47,12 +47,11 @@
         "PORT": 8080
       }
     },
-    "start:prod-pm2": {
+    "start:heroku": {
       "command": "pm2 start ./index.js -i 0 --name 'image-recognition-app'",
       "env": {
           "NODE_PATH": "./src",
-          "NODE_ENV": "production",
-          "PORT": 8080
+          "NODE_ENV": "production"
       }
     },
     "build:client": {
