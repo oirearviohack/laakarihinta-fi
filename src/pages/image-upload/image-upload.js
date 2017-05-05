@@ -34,7 +34,14 @@ class ImageUpload extends Component {
     }
 
     static onSubmitClicked() {
-        fetch('/api/recognize-image-2');
+        const body = {
+            foo: 'bar'
+        };
+        fetch('/api/recognize-image-2', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 
     constructor() {
