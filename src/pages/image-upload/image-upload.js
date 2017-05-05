@@ -18,6 +18,7 @@ const s = {
 };
 
 class ImageUpload extends Component {
+
     static _fileUploaded(e) {
         console.log(e.target);
         console.log(e.target.files);
@@ -34,7 +35,16 @@ class ImageUpload extends Component {
 
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            file: '',
+            imagePreviewUrl: ''
+        };
+
+        this.onImageChange = ::this.onImageChange;
+    }
+
+    onImageChange() {
+        // vaihtaa filun statessa
     }
 
     render() {
@@ -57,7 +67,10 @@ class ImageUpload extends Component {
                             <FileUpload />
                             <span className="u-margin-xxs-left">Lataa kuva</span>
                         </Typography>
-                        <DropArea />
+                        <DropArea
+                            imagePreviewUrl={this.state.imagePreviewUrl}
+                            onImageChange={this.onImageChange}
+                        />
                         <Button raised onClick={ImageUpload._submitClicked}>Lähetä</Button>
                     </Paper>
                 </div>
