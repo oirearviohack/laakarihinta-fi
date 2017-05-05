@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from './redux/store';
+import createStyleManager from './lib/shared/style-manager';
 
 
 const initialState = window.__INITIAL_STATE__;
@@ -13,9 +14,10 @@ const mountNode = document.getElementById('app');
 
 const renderApp = () => {
     const App = require('./components/app/app').default; // eslint-disable-line
+    const { styleManager, theme } = createStyleManager();
 
     render(
-        <MuiThemeProvider>
+        <MuiThemeProvider styleManager={styleManager} theme={theme}>
             <AppContainer>
                 <Provider store={store}>
                     <BrowserRouter>

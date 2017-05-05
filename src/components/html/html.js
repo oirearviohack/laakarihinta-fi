@@ -8,10 +8,11 @@ import _ from 'lodash';
 
 const propTypes = {
     store: PropTypes.object.isRequired,
-    htmlContent: PropTypes.string.isRequired
+    htmlContent: PropTypes.string.isRequired,
+    materialCSS: PropTypes.string.isRequired
 };
 
-const Html = ({ store, htmlContent }) => {
+const Html = ({ store, htmlContent, materialCSS }) => {
     const head = Helmet.renderStatic();
     const attrs = head.htmlAttributes.toComponent();
     const { lang, ...rest } = attrs || {};
@@ -41,12 +42,17 @@ const Html = ({ store, htmlContent }) => {
                     <script key={_.uniqueId()} src={assets.javascript[script]} />,
                 )}
                 {head.script.toComponent()}
+                <style id="jss-server-side">{materialCSS}</style>
             </body>
         </html>
     );
 };
 
-Html.defaultProps = { htmlContent: '' };
+Html.defaultProps = {
+    htmlContent: '',
+    materialCSS: ''
+};
+
 Html.propTypes = propTypes;
 
 export default Html;

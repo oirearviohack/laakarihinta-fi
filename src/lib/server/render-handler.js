@@ -10,10 +10,18 @@ import configureStore from '../../redux/store';
 import routes from '../../routes';
 import App from '../../components/app/app';
 import Html from '../../components/html/html';
+import createStyleManager from '../../lib/shared/style-manager';
 
 
-const renderHtml = (store, htmlContent) => {
-    const html = renderToStaticMarkup(<Html store={store} htmlContent={htmlContent} />);
+const renderHtml = (store, htmlContent, materialCSS) => {
+    const html = renderToStaticMarkup(
+        <Html
+            store={store}
+            htmlContent={htmlContent}
+            materialCSS={materialCSS}
+        />
+    );
+
     return `<!DOCTYPE html>${html}`;
 };
 
@@ -31,22 +39,26 @@ const renderHandler = async (req, res) => {
 
     await Promise.all(routePromises);
 
+    const { styleManager, theme } = createStyleManager();
+
     const routerContext = {};
     const content = renderToString(
-        <Provider store={store}>
-            <StaticRouter location={req.url} context={routerContext}>
-                <MuiThemeProvider>
+        <MuiThemeProvider styleManager={styleManager} theme={theme}>
+            <Provider store={store}>
+                <StaticRouter location={req.url} context={routerContext}>
                     <App />
-                </MuiThemeProvider>
-            </StaticRouter>
-        </Provider>,
+                </StaticRouter>
+            </Provider>
+        </MuiThemeProvider>,
     );
 
     if (routerContext.url) {
         return res.redirect(HttpStatus.PERMANENTLY_MOVED, routerContext.url).setHeader('Location', routerContext.url);
     }
 
-    return res.status(HttpStatus.OK).send(renderHtml(store, content));
+    const materialCSS = styleManager.sheetsToString();
+
+    return res.status(HttpStatus.OK).send(renderHtml(store, content, materialCSS));
 };
 
 export default renderHandler;

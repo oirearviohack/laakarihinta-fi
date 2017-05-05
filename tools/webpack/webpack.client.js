@@ -121,34 +121,6 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style',
-                    use: [
-                        {
-                            loader: 'css',
-                            options: {
-                                importLoaders: 1,
-                                sourceMap: true,
-                                modules: CSSModules,
-                                context: path.join(process.cwd(), './src'),
-                                localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
-                                minimize: !isDev
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: () => ([
-                                    precss,
-                                    autoprefixer({ browsers: ['last 10 versions'] })
-                                ])
-                            }
-                        }
-                    ]
-                })
-            },
-            {
                 test: /\.(scss|sass)$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style',

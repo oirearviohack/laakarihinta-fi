@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { renderRoutes } from 'react-router-config';
 import Header from '../header/header';
-import Footer from '../footer/footer';
 
 
-const Main = props => (
-    <div className="o-main-layout">
-        <Header />
-        <div className="o-main-layout__content">
-            {renderRoutes(props.route.routes)}
-        </div>
-        <Footer />
-    </div>
-);
+class Main extends Component {
 
-Main.propTypes = {
-    route: PropTypes.shape({
-        routes: PropTypes.array
-    }).isRequired
-};
+    static propTypes = {
+        route: PropTypes.shape({
+            routes: PropTypes.array
+        }).isRequired
+    };
+
+    componentDidMount() {
+        const jssStyles = document.getElementById('jss-server-side');
+        if (jssStyles && jssStyles.parentNode) {
+            jssStyles.parentNode.removeChild(jssStyles);
+        }
+    }
+
+    render() {
+        return (
+            <div className="o-main-layout">
+                <Header />
+                <div className="o-main-layout__content">
+                    {renderRoutes(this.props.route.routes)}
+                </div>
+            </div>
+        );
+    }
+}
 
 export default Main;
