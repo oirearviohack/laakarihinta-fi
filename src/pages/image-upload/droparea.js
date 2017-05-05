@@ -1,19 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+import AddAPhoto from 'material-ui-icons/AddAPhoto';
 
 
-const DropArea = () => {
-    const abc = () => {};
-    abc();
-    return (
-        <section>
-            <div className="c-dropzone">
-                <Dropzone onDrop={() => {}}>
-                    <p>Try dropping some files here, or click to select files to upload.</p>
-                </Dropzone>
+const DropArea = props => (
+    <section>
+        {props.imagePreviewUrl}
+        <Dropzone className="c-dropzone" onDrop={props.onImageChange}>
+            <div>
+                <AddAPhoto className="u-text-center" />
+                <p>Ota tai lataa kuva</p>
             </div>
-        </section>
-    );
+        </Dropzone>
+    </section>
+);
+
+DropArea.propTypes = {
+    imagePreviewUrl: PropTypes.string.isRequired,
+    onImageChange: PropTypes.func.isRequired
 };
 
 export default DropArea;

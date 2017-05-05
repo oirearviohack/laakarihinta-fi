@@ -1,0 +1,12 @@
+.c-dropzone {
+    width: 100%;
+    height: 250px;
+    background-color: $color-grey-light;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    border: 3px dashed $color-grey-dark;
+}
+

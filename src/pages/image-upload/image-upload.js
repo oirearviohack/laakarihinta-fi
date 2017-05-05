@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Help from 'material-ui-icons/Help';
 import FileUpload from 'material-ui-icons/FileUpload';
+import Send from 'material-ui-icons/Send';
 import Button from 'material-ui/Button';
 import DropArea from './droparea';
 
@@ -14,6 +15,9 @@ const s = {
     paperTitle: {
         display: 'flex',
         alignItems: 'center'
+    },
+    submitButton: {
+        width: '100%'
     }
 };
 
@@ -44,6 +48,7 @@ class ImageUpload extends Component {
     }
 
     onImageChange() {
+        console.log(this.state);
         // vaihtaa filun statessa
     }
 
@@ -71,7 +76,16 @@ class ImageUpload extends Component {
                             imagePreviewUrl={this.state.imagePreviewUrl}
                             onImageChange={this.onImageChange}
                         />
-                        <Button raised onClick={ImageUpload._submitClicked}>Lähetä</Button>
+                        <Button
+                            primary
+                            raised
+                            className="u-margin-sm-top"
+                            onClick={ImageUpload._submitClicked}
+                            style={s.submitButton}
+                        >
+                            <span className="u-margin-xs-right">Lähetä</span>
+                            <Send />
+                        </Button>
                     </Paper>
                 </div>
             </div>
