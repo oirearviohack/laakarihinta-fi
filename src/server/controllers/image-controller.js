@@ -21,7 +21,12 @@ class ImageController {
     }
 
     registerRoutes() {
+        this.router.get('/recognize-image-2', wrap(ImageController.hevonen));
         this.router.post('/recognize-image', upload.single('image'), wrap(ImageController.recognizeImage));
+    }
+
+    static async hevonen(req, res) {
+        res.json({foo: 'bar'});
     }
 
     static detectEye(data) {

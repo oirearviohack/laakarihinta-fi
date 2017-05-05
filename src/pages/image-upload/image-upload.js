@@ -33,6 +33,10 @@ class ImageUpload extends Component {
         console.log('lol');
     }
 
+    static onSubmitClicked() {
+        fetch('/api/recognize-image-2');
+    }
+
     constructor() {
         super();
         this.state = {
@@ -84,7 +88,7 @@ class ImageUpload extends Component {
                             onImageChange={this.onImageChange}
                         />
                         <input type="file" accept="image/*" capture onChange={this.onImageChange} />
-                        <Button raised onClick={ImageUpload._submitClicked} disabled={submitDisabled}>Lähetä</Button>
+                        <Button raised onClick={ImageUpload.onSubmitClicked} disabled={submitDisabled}>Lähetä</Button>
                     </Paper>
                 </div>
             </div>
