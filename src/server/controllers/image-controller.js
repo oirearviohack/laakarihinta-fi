@@ -1,5 +1,6 @@
 // eslint-disable max-len
 import multer from 'multer';
+import bodyParser from 'body-parser';
 import fetch from 'isomorphic-fetch';
 import FormData from 'form-data';
 import fs from 'fs';
@@ -21,7 +22,13 @@ class ImageController {
     }
 
     registerRoutes() {
+        this.router.post('/recognize-image-2', bodyParser.json(), wrap(ImageController.hevonen));
         this.router.post('/recognize-image', upload.single('image'), wrap(ImageController.recognizeImage));
+    }
+
+    static async hevonen(req, res) {
+        console.log(req.body);
+        res.json({foo: 'bar'});
     }
 
     static detectEye(data) {

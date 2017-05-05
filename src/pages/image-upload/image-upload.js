@@ -37,6 +37,17 @@ class ImageUpload extends Component {
         console.log('lol');
     }
 
+    static onSubmitClicked() {
+        const body = {
+            foo: 'bar'
+        };
+        fetch('/api/recognize-image-2', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+
     constructor() {
         super();
         this.state = {
@@ -102,7 +113,7 @@ class ImageUpload extends Component {
                                 </Button>
                             </div>
                             <div className="col-s-6">
-                                <Button onClick={ImageUpload._submitClicked} style={s.controlButton} primary raised>
+                                <Button onClick={ImageUpload.onSubmitClicked} style={s.controlButton} primary raised>
                                     Lähetä
                                 </Button>
                             </div>
