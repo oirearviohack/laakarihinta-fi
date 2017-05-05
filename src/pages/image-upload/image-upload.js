@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Help from 'material-ui-icons/Help';
@@ -16,30 +16,39 @@ const s = {
     }
 };
 
-const ImageUpload = () => (
-    <div className="row">
-        <div className="col-s-6 u-margin-sm-bottom">
-            <Paper elevation={4} style={s.paperStyle}>
-                <Typography type="title" className="u-margin-xs-bottom" style={s.paperTitle}>
-                    <Help />
-                    <span className="u-margin-xxs-left">Ohjeet</span>
-                </Typography>
-                <Typography type="body1">
-                    Lorea ipsudem ohjeet diipadapapapa dspapaspd apdpas pdaspd aspdpaspd sapdaspdp aspdaspdasp
-                </Typography>
-            </Paper>
-        </div>
-        <div className="col-s-6">
-            <Paper elevation={4} style={s.paperStyle}>
-                <Typography type="title" className="u-margin-xs-bottom" style={s.paperTitle}>
-                    <FileUpload />
-                    <span className="u-margin-xxs-left">Lataa kuva</span>
-                </Typography>
-                <input type="file" accept="image/*" capture />
-                <Button raised disabled>Lähetä</Button>
-            </Paper>
-        </div>
-    </div>
-);
+class ImageUpload extends Component {
+    constructor() {
+        super();
+        this.state = {};
+    }
+
+    render() {
+        return (
+            <div className="row">
+                <div className="col-s-6 u-margin-sm-bottom">
+                    <Paper elevation={4} style={s.paperStyle}>
+                        <Typography type="title" className="u-margin-xs-bottom" style={s.paperTitle}>
+                            <Help />
+                            <span className="u-margin-xxs-left">Ohjeet</span>
+                        </Typography>
+                        <Typography type="body1">
+                            Lorea ipsudem ohjeet diipadapapapa dspapaspd apdpas pdaspd aspdpaspd sapdaspdp aspdaspdasp
+                        </Typography>
+                    </Paper>
+                </div>
+                <div className="col-s-6">
+                    <Paper elevation={4} style={s.paperStyle}>
+                        <Typography type="title" className="u-margin-xs-bottom" style={s.paperTitle}>
+                            <FileUpload />
+                            <span className="u-margin-xxs-left">Lataa kuva</span>
+                        </Typography>
+                        <input type="file" accept="image/*" capture />
+                        <Button raised>Lähetä</Button>
+                    </Paper>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default ImageUpload;
