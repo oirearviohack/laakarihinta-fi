@@ -4,7 +4,6 @@ import Typography from 'material-ui/Typography';
 import Help from 'material-ui-icons/Help';
 import FileUpload from 'material-ui-icons/FileUpload';
 
-
 const s = {
     paperStyle: {
         padding: 16
