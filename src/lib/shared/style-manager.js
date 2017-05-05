@@ -10,7 +10,8 @@ const createStyleManager = () => (
             palette: createPalette({
                 primary: cyan,
                 accent: pink,
-                type: 'light'
+                type: 'light',
+                alternateTextColor: 'white'
             })
         })
     })

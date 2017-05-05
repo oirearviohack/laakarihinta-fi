@@ -24,7 +24,9 @@ class Main extends Component {
             <div className="o-main-layout">
                 <Header />
                 <div className="o-main-layout__content">
-                    {renderRoutes(this.props.route.routes)}
+                    <div className="container-fluid u-margin-sm-top">
+                        {renderRoutes(this.props.route.routes)}
+                    </div>
                 </div>
             </div>
         );
