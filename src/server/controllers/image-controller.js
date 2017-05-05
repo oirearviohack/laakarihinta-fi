@@ -28,7 +28,7 @@ class ImageController {
 
     static async hevonen(req, res) {
         console.log(req.body);
-        res.json({foo: 'bar'});
+        res.json({ foo: 'bar' });
     }
 
     static detectEye(data) {
