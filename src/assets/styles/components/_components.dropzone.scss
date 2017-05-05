@@ -8,5 +8,12 @@
     justify-content: space-around;
     text-align: center;
     border: 3px dashed $color-grey-dark;
+    color: $color-grey-dark;
+    font-weight: bold;
+}
+
+.c-dropzone__preview {
+    width: 100%;
+    height: auto;
 }
 

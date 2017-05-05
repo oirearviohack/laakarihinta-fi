@@ -3,8 +3,8 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Help from 'material-ui-icons/Help';
 import FileUpload from 'material-ui-icons/FileUpload';
-import Send from 'material-ui-icons/Send';
 import Button from 'material-ui/Button';
+import classNames from 'classnames';
 import DropArea from './droparea';
 
 
@@ -16,7 +16,7 @@ const s = {
         display: 'flex',
         alignItems: 'center'
     },
-    submitButton: {
+    controlButton: {
         width: '100%'
     }
 };
@@ -45,25 +45,33 @@ class ImageUpload extends Component {
         };
 
         this.onImageChange = ::this.onImageChange;
+        this.removeImage = ::this.removeImage;
     }
 
-    onImageChange(e) {
-        e.preventDefault();
+    onImageChange(files) {
         const reader = new FileReader();
-        const file = e.target.files[0];
-
+        const file = files ? files[0] : null;
         reader.onloadend = () => {
-            this.setState({
-                file,
-                imagePreviewUrl: reader.result
-            });
+            this.setState({ file, imagePreviewUrl: reader.result });
         };
 
         reader.readAsDataURL(file);
     }
 
+    removeImage() {
+        this.setState({
+            file: null,
+            imagePreviewUrl: ''
+        });
+    }
+
     render() {
-        const submitDisabled = !this.state.file;
+        const controlButtonContainerClass = classNames({
+            'u-hidden': !this.state.imagePreviewUrl,
+            'u-margin-sm-top': true,
+            row: true
+        });
+
         return (
             <div className="row">
                 <div className="col-s-6 u-margin-sm-bottom">
@@ -87,17 +95,18 @@ class ImageUpload extends Component {
                             imagePreviewUrl={this.state.imagePreviewUrl}
                             onImageChange={this.onImageChange}
                         />
-                        <Button
-                            className="u-margin-sm-top"
-                            onClick={ImageUpload._submitClicked}
-                            style={s.submitButton}
-                            disabled={submitDisabled}
-                            primary
-                            raised
-                        >
-                            <span className="u-margin-xs-right">Lähetä</span>
-                            <Send />
-                        </Button>
+                        <div className={controlButtonContainerClass}>
+                            <div className="col-s-6 u-margin-xs-bottom">
+                                <Button onClick={this.removeImage} style={s.controlButton} secondary raised>
+                                    Uusi kuva
+                                </Button>
+                            </div>
+                            <div className="col-s-6">
+                                <Button onClick={ImageUpload._submitClicked} style={s.controlButton} primary raised>
+                                    Lähetä
+                                </Button>
+                            </div>
+                        </div>
                     </Paper>
                 </div>
             </div>
