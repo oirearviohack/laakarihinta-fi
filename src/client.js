@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from './redux/store';
 
 
@@ -14,13 +15,15 @@ const renderApp = () => {
     const App = require('./components/app/app').default; // eslint-disable-line
 
     render(
-        <AppContainer>
-            <Provider store={store}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </Provider>
-        </AppContainer>,
+        <MuiThemeProvider>
+            <AppContainer>
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </Provider>
+            </AppContainer>
+        </MuiThemeProvider>,
         mountNode
     );
 };

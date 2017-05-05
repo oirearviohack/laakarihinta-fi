@@ -5,6 +5,7 @@ import { matchRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from '../../redux/store';
 import routes from '../../routes';
 import App from '../../components/app/app';
@@ -34,7 +35,9 @@ const renderHandler = async (req, res) => {
     const content = renderToString(
         <Provider store={store}>
             <StaticRouter location={req.url} context={routerContext}>
-                <App />
+                <MuiThemeProvider>
+                    <App />
+                </MuiThemeProvider>
             </StaticRouter>
         </Provider>,
     );

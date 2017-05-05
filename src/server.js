@@ -15,6 +15,10 @@ import { logErrors, catchAllErrorHandler, clientErrorHandler } from './lib/serve
 
 
 const app = express();
+
+global.navigator = global.navigator || {};
+global.navigator.userAgent = global.navigator.userAgent || 'all';
+
 app.use(healthCheck);
 app.use(forceDomain({ hostname: 'wwwonderful.com', protocol: 'https' }));
 app.use(helmet());
