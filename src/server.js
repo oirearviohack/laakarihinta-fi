@@ -38,6 +38,6 @@ app.use(catchAllErrorHandler);
 
 app.listen(port, (error) => {
     if (error) throw error;
-    if (__DEV__) require('../tools/openBrowser').default(port);
+    // if (__DEV__) require('../tools/openBrowser').default(port);
     console.log('Express server listening on port', port);
 });
