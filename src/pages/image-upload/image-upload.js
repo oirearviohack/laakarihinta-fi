@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Help from 'material-ui-icons/Help';
 import FileUpload from 'material-ui-icons/FileUpload';
+import DropArea from './droparea';
 
 
 const s = {
@@ -34,6 +35,7 @@ const ImageUpload = () => (
                     <FileUpload />
                     <span className="u-margin-xxs-left">Lataa kuva</span>
                 </Typography>
+                <DropArea />
                 <input type="file" accept="image/*" capture />
             </Paper>
         </div>

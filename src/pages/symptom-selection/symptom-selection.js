@@ -22,7 +22,7 @@ const s = {
         width: '100%'
     },
     card: {
-        margin: '12px 0px'
+        margin: '0 0 24px 0'
     },
     firstCard: {
         marginTop: 0,
