@@ -34,6 +34,7 @@ const HomePage = () => (
                     <FileUpload />
                     <span className="u-margin-xxs-left">Lataa kuva</span>
                 </Typography>
+                <input type="file" accept="image/*" capture />
             </Paper>
         </div>
     </div>
