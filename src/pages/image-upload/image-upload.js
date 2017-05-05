@@ -33,10 +33,6 @@ class ImageUpload extends Component {
         reader.readAsDataURL(e.target.files[0]);
     }
 
-    static _submitClicked() {
-        console.log('lol');
-    }
-
     static onSubmitClicked() {
         const body = {
             foo: 'bar'
@@ -108,7 +104,7 @@ class ImageUpload extends Component {
                         />
                         <div className={controlButtonContainerClass}>
                             <div className="col-s-6 u-margin-xs-bottom">
-                                <Button onClick={this.removeImage} style={s.controlButton} secondary raised>
+                                <Button onClick={this.removeImage} style={s.controlButton} contrast raised>
                                     Uusi kuva
                                 </Button>
                             </div>
