@@ -1,5 +1,6 @@
 import Main from './components/layouts/main';
-import Home from './pages/home/home';
+import ImageUpload from './pages/image-upload/image-upload';
+import SymptomSelection from './pages/symptom-selection/symptom-selection';
 import NotFound from './pages/not-found/not-found';
 
 
@@ -9,12 +10,16 @@ const routes = [
         routes: [
             {
                 path: '/',
-                component: Home,
+                component: SymptomSelection,
                 exact: true
             },
             {
-                path: '/home',
-                component: Home
+                path: '/oirevaihtoehdot',
+                component: SymptomSelection
+            },
+            {
+                path: '/kuva-analyysi',
+                component: ImageUpload
             },
             {
                 path: '*',
