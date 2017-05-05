@@ -88,7 +88,9 @@ class ImageUpload extends Component {
                             <span className="u-margin-xxs-left">Ohjeet</span>
                         </Typography>
                         <Typography type="body1">
-                            Lorea ipsudem ohjeet diipadapapapa dspapaspd apdpas pdaspd aspdpaspd sapdaspdp aspdaspdasp
+                            <p>1. Ota kuva noin 10cm etäisyydeltä silmistäsi.</p>
+                            <p>2. Klikkaa lähetä.</p>
+                            <p>3. Tarkastele tuloksia.</p>
                         </Typography>
                     </Paper>
                 </div>
