@@ -12,7 +12,7 @@
   "author": "Wwwonderful && eMedi Innovations",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npm install pm2 -g && yarn run clean:all",
+    "preinstall": "npm install pm2 -g",
     "start": "yarn build && better-npm-run start:prod",
     "start:dev": "better-npm-run start:dev",
     "start:heroku": "better-npm-run start:heroku",
