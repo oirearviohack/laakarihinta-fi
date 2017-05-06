@@ -1,6 +1,7 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, eslint-disable-line, react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Card, CardMedia, CardContent, CardActions } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -40,93 +41,63 @@ const s = {
     }
 };
 
-const SymptomSelection = (props) => {
-    const goToPhotoUpload = () => {
-        props.history.push('/kuva-analyysi');
-    };
+const symptoms = [
+    {
+        src: require('../../assets/images/laastari.jpg'),
+        alt: 'wound',
+        title: 'Haava'
+    },
+    {
+        src: require('../../assets/images/eyes.jpg'),
+        alt: 'eyes',
+        title: 'Silmätulehdus'
+    },
+    {
+        src: require('../../assets/images/ihottuma.jpg'),
+        alt: 'rash',
+        title: 'Ihottuma'
+    }
+];
 
-    return (
-        <section style={s.cardsContainer}>
-            <Card style={s.card}>
-                <CardMedia>
-                    <img
-                        src={require('../../assets/images/laastari.jpg')}
-                        style={s.responsiveSymptomImage}
-                        alt="wound"
-                        role="presentation"
-                    />
-                </CardMedia>
-                <CardContent>
-                    <Typography type="headline" component="h2">
-                        Haava
-                    </Typography>
-                    <Typography component="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
-                </CardActions>
-            </Card>
-            <Card style={s.card}>
-                <CardMedia>
-                    <img
-                        src={require('../../assets/images/eyes.jpg')}
-                        style={s.responsiveSymptomImage}
-                        alt="eyes"
-                        role="presentation"
-                    />
-                </CardMedia>
-                <CardContent>
-                    <Typography type="headline" component="h2">
-                        Silmätulehdus
-                    </Typography>
-                    <Typography component="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button raised primary style={s.symptomButton} onClick={goToPhotoUpload}>
-                        Aloita hoitoarvio
-                    </Button>
-                </CardActions>
-            </Card>
-            <Card style={s.card}>
-                <CardMedia>
-                    <img
-                        src={require('../../assets/images/ihottuma.jpg')}
-                        style={s.responsiveSymptomImage}
-                        alt="rash"
-                        role="presentation"
-                    />
-                </CardMedia>
-                <CardContent>
-                    <Typography type="headline" component="h2">
-                        Ihottuma
-                    </Typography>
-                    <Typography component="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
-                </CardActions>
-            </Card>
-            <div style={s.cardPlaceholder} />
-            <div style={s.cardPlaceholder} />
-            <div style={s.cardPlaceholder} />
-            <div style={s.cardPlaceholder} />
-            <div style={s.cardPlaceholder} />
-            <div style={s.cardPlaceholder} />
-            <div style={s.cardPlaceholder} />
-        </section>
-    );
+const SymptomCard = ({ src, alt, title }) => (
+    <Card style={s.card}>
+        <CardMedia>
+            <img src={src} style={s.responsiveSymptomImage} alt={alt} role="presentation" />
+        </CardMedia>
+        <CardContent>
+            <Typography type="headline" component="h2">
+                {title}
+            </Typography>
+            <Typography component="p">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
+            </Typography>
+        </CardContent>
+        <CardActions>
+            <Link to="/kuva-analyysi" style={s.symptomButton}>
+                <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
+            </Link>
+        </CardActions>
+    </Card>
+);
+
+SymptomCard.propTypes = {
+    src: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired
 };
 
-SymptomSelection.propTypes = {
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-    }).isRequired
-};
+const SymptomSelection = () => (
+    <section style={s.cardsContainer}>
+        {symptoms.map((symptom, index) => <SymptomCard key={index} {...symptom} />)}
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+        <div style={s.cardPlaceholder} />
+    </section>
+);
 
 export default SymptomSelection;
