@@ -22,7 +22,7 @@ const s = {
     instructionImage: {
         width: '80%',
         height: 'auto',
-        padding: '20px'
+        padding: 20
     }
 };
 
