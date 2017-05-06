@@ -27,7 +27,7 @@ class ImageController {
 
     static recognizeImage(req, res) {
         const mimetype = 'image/jpeg';
-        const base64Data = req.body.toString().replace(/^data:image\/jpeg;base64,/, "");
+        const base64Data = req.body.toString().replace(/^data:image\/jpeg;base64,/, '');
         const image = sharp(new Buffer(base64Data, 'base64'));
         return image
             .metadata()
