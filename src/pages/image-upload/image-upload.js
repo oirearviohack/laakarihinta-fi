@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { LinearProgress } from 'material-ui/Progress';
+import Paper from 'material-ui/Paper';
 import UploadPanel from './upload-panel';
 import TutorialPanel from './tutorial-panel';
 import imageUploadActions from './image-upload-actions';
 
+
+const s = {
+    paperStyle: {
+        padding: 16
+    }
+};
 
 class ImageUpload extends Component {
 
@@ -13,7 +21,7 @@ class ImageUpload extends Component {
         history: PropTypes.shape({
             push: PropTypes.func.isRequired
         }).isRequired,
-        recognitionState: PropTypes.shape().isRequired
+        imageUploadStore: PropTypes.shape().isRequired
     };
 
     constructor() {
@@ -31,10 +39,10 @@ class ImageUpload extends Component {
     }
 
     componentDidUpdate() {
-        const eyeDetected = this.props.recognitionState.lastUpdated &&
-            !this.props.recognitionState.fetchError &&
-            !this.props.recognitionState.isFetching &&
-            this.props.recognitionState.isEye;
+        const eyeDetected = this.props.imageUploadStore.lastUpdated &&
+            !this.props.imageUploadStore.fetchError &&
+            !this.props.imageUploadStore.isFetching &&
+            this.props.imageUploadStore.isEye;
         if (eyeDetected) {
             this.goToSuccessPage();
         }
@@ -68,7 +76,8 @@ class ImageUpload extends Component {
     }
 
     render() {
-        return (
+        const { isFetching, fetchError, isEye, lastUpdated } = this.props.imageUploadStore;
+        const imageUploadPanels = (
             <div className="row">
                 <div className="col-s-6 u-margin-sm-bottom">
                     <TutorialPanel />
@@ -83,6 +92,34 @@ class ImageUpload extends Component {
                     />
                 </div>
             </div>
+        );
+
+        const loadingPanel = (
+            <Paper elevation={4} style={s.paperStyle}>
+                Analysoidaan kuvaa
+                <LinearProgress />
+            </Paper>
+        );
+
+        const eyeNotRecognizedPanel = (
+            <Paper elevation={4} style={s.paperStyle}>
+                Analysis error
+            </Paper>
+        );
+
+        const serverErrorPanel = (
+            <Paper elevation={4} style={s.paperStyle}>
+                Server error
+            </Paper>
+        );
+
+        return (
+            <section>
+                {isFetching && !isEye && !lastUpdated && loadingPanel}
+                {!isFetching && !isEye && !lastUpdated && !fetchError && imageUploadPanels}
+                {!isFetching && fetchError && serverErrorPanel}
+                {!isFetching && lastUpdated && !isEye && eyeNotRecognizedPanel}
+            </section>
         );
     }
 }

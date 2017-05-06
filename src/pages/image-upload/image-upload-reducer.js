@@ -1,6 +1,7 @@
 import initialState from '../../redux/initial-state';
 import imageUploadActions from './image-upload-actions';
 
+
 const imageUploadReducer = (imageUploadStore = initialState.imageUploadStore, action) => {
     switch (action.type) {
         case imageUploadActions.actionTypes.RECOGNIZE_IMAGE:
