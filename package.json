@@ -48,7 +48,7 @@
       }
     },
     "start:heroku": {
-      "command": "pm2 start ./index.js -i 0 --name 'image-recognition-app' && pm2 logs all",
+      "command": "pm2 start ./index.js --name 'image-recognition-app' && pm2 logs all",
       "env": {
           "NODE_PATH": "./src",
           "NODE_ENV": "production"
