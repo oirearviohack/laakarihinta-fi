@@ -87,7 +87,7 @@ class ImageUpload extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     imageUploadStore: state.imageUploadStore
 });
 
