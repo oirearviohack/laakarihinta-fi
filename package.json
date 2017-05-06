@@ -15,7 +15,7 @@
     "preinstall": "npm install pm2 -g",
     "start": "yarn build && better-npm-run start:prod",
     "start:dev": "better-npm-run start:dev",
-    "start:heroku": "yarn build && better-npm-run start:heroku",
+    "start:heroku": "better-npm-run start:heroku",
     "build": "yarn build:client && yarn build:server",
     "build:client": "yarn clean:client && better-npm-run build:client",
     "build:server": "yarn clean:server && better-npm-run build:server",
