@@ -6,11 +6,11 @@ import classNames from 'classnames';
 
 
 const DropArea = (props) => {
-    console.log(props);
     const dropzoneVisibility = classNames({
         'c-dropzone': true,
         'u-hidden': !!props.imagePreviewUrl
     });
+
     return (
         <section>
             <img

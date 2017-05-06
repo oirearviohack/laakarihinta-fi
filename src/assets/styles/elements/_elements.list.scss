@@ -2,3 +2,8 @@ ul,
 ol {
     list-style: none;
 }
+
+ul,
+ol > li {
+    margin: $spacing-xxs 0;
+}
