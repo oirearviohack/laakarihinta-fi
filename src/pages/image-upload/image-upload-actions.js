@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
+
 const CLEAR_STATE = 'CLEAR_STATE';
 const RECOGNIZE_IMAGE = 'RECOGNIZE_IMAGE';
 const RECOGNIZE_IMAGE_ERROR = 'RECOGNIZE_IMAGE_ERROR';

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { LinearProgress } from 'material-ui/Progress';
 import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 import UploadPanel from './upload-panel';
 import TutorialPanel from './tutorial-panel';
 import imageUploadActions from './image-upload-actions';
@@ -10,6 +11,15 @@ import imageUploadActions from './image-upload-actions';
 
 const s = {
     paperStyle: {
+        padding: 16
+    },
+    statePanel: {
+        display: 'flex',
+        width: '100%',
+        height: 400,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        textAlign: 'center',
         padding: 16
     }
 };
@@ -96,20 +106,36 @@ class ImageUpload extends Component {
 
         const loadingPanel = (
             <Paper elevation={4} style={s.paperStyle}>
-                Analysoidaan kuvaa
+                <Typography type="title">
+                    Hetkinen... Analysoin näytettä
+                </Typography>
                 <LinearProgress />
             </Paper>
         );
 
         const eyeNotRecognizedPanel = (
-            <Paper elevation={4} style={s.paperStyle}>
-                Analysis error
+            <Paper elevation={4} style={s.statePanel}>
+                <div>
+                    <Typography type="display1">
+                        Valitettavasti en löytänyt kuvasta silmää.
+                    </Typography>
+                    <Typography type="body1">
+                        Ole hyvä ja ota uusi kuva.
+                    </Typography>
+                </div>
             </Paper>
         );
 
         const serverErrorPanel = (
-            <Paper elevation={4} style={s.paperStyle}>
-                Server error
+            <Paper elevation={4} style={s.statePanel}>
+                <div>
+                    <Typography type="display1">
+                        Nyt meni sormi suuhun
+                    </Typography>
+                    <Typography type="body1">
+                        Kehnot koodarit kaatoivat minut jättämällä bugin koodiin :(
+                    </Typography>
+                </div>
             </Paper>
         );
 
