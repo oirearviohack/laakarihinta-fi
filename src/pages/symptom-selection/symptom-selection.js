@@ -22,11 +22,21 @@ const s = {
         width: '100%'
     },
     card: {
-        margin: '0 0 24px 0'
+        flex: '1 1 350px',
+        margin: '0 6px 24px 6px'
     },
     firstCard: {
         marginTop: 0,
         marginBottom: 12
+    },
+    cardsContainer: {
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
+    cardPlaceholder: {
+        height: 0,
+        flex: '1 1 350px',
+        margin: '0 6px 24px 6px'
     }
 };
 
@@ -36,79 +46,80 @@ const SymptomSelection = (props) => {
     };
 
     return (
-        <div className="row">
-            <div className="col-s-4">
-                <Card style={s.firstCard}>
-                    <CardMedia>
-                        <img
-                            src={require('../../assets/images/laastari.jpg')}
-                            style={s.responsiveSymptomImage}
-                            alt="wound"
-                            role="presentation"
-                        />
-                    </CardMedia>
-                    <CardContent>
-                        <Typography type="headline" component="h2">
-                            Haava
-                        </Typography>
-                        <Typography component="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
-                    </CardActions>
-                </Card>
-            </div>
-            <div className="col-s-4">
-                <Card style={s.card}>
-                    <CardMedia>
-                        <img
-                            src={require('../../assets/images/eyes.jpg')}
-                            style={s.responsiveSymptomImage}
-                            alt="eyes"
-                            role="presentation"
-                        />
-                    </CardMedia>
-                    <CardContent>
-                        <Typography type="headline" component="h2">
-                            Silmätulehdus
-                        </Typography>
-                        <Typography component="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button raised primary style={s.symptomButton} onClick={goToPhotoUpload}>
-                            Aloita hoitoarvio
-                        </Button>
-                    </CardActions>
-                </Card>
-            </div>
-            <div className="col-s-4">
-                <Card style={s.card}>
-                    <CardMedia>
-                        <img
-                            src={require('../../assets/images/ihottuma.jpg')}
-                            style={s.responsiveSymptomImage}
-                            alt="rash"
-                            role="presentation"
-                        />
-                    </CardMedia>
-                    <CardContent>
-                        <Typography type="headline" component="h2">
-                            Ihottuma
-                        </Typography>
-                        <Typography component="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
-                    </CardActions>
-                </Card>
-            </div>
-        </div>
+        <section style={s.cardsContainer}>
+            <Card style={s.card}>
+                <CardMedia>
+                    <img
+                        src={require('../../assets/images/laastari.jpg')}
+                        style={s.responsiveSymptomImage}
+                        alt="wound"
+                        role="presentation"
+                    />
+                </CardMedia>
+                <CardContent>
+                    <Typography type="headline" component="h2">
+                        Haava
+                    </Typography>
+                    <Typography component="p">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
+                </CardActions>
+            </Card>
+            <Card style={s.card}>
+                <CardMedia>
+                    <img
+                        src={require('../../assets/images/eyes.jpg')}
+                        style={s.responsiveSymptomImage}
+                        alt="eyes"
+                        role="presentation"
+                    />
+                </CardMedia>
+                <CardContent>
+                    <Typography type="headline" component="h2">
+                        Silmätulehdus
+                    </Typography>
+                    <Typography component="p">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button raised primary style={s.symptomButton} onClick={goToPhotoUpload}>
+                        Aloita hoitoarvio
+                    </Button>
+                </CardActions>
+            </Card>
+            <Card style={s.card}>
+                <CardMedia>
+                    <img
+                        src={require('../../assets/images/ihottuma.jpg')}
+                        style={s.responsiveSymptomImage}
+                        alt="rash"
+                        role="presentation"
+                    />
+                </CardMedia>
+                <CardContent>
+                    <Typography type="headline" component="h2">
+                        Ihottuma
+                    </Typography>
+                    <Typography component="p">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel orci molestie diam efficitur mattis.
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button raised primary style={s.symptomButton}>Aloita hoitoarvio</Button>
+                </CardActions>
+            </Card>
+            <div style={s.cardPlaceholder} />
+            <div style={s.cardPlaceholder} />
+            <div style={s.cardPlaceholder} />
+            <div style={s.cardPlaceholder} />
+            <div style={s.cardPlaceholder} />
+            <div style={s.cardPlaceholder} />
+            <div style={s.cardPlaceholder} />
+        </section>
     );
 };
 

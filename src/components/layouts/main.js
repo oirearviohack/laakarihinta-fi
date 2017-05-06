@@ -9,7 +9,8 @@ class Main extends Component {
     static propTypes = {
         route: PropTypes.shape({
             routes: PropTypes.array
-        }).isRequired
+        }).isRequired,
+        history: PropTypes.object // eslint-disable-line
     };
 
     componentDidMount() {
@@ -22,7 +23,7 @@ class Main extends Component {
     render() {
         return (
             <div className="o-main-layout">
-                <Header />
+                <Header history={this.props.history} />
                 <div className="o-main-layout__content">
                     <div className="container u-margin-sm-top">
                         {renderRoutes(this.props.route.routes)}
