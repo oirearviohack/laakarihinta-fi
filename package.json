@@ -1,7 +1,7 @@
 {
-  "name": "wwwonderful-web",
+  "name": "image-analyzer-app",
   "version": "1.0.0",
-  "description": "Website for Wwwonderful Ltd.",
+  "description": "Website for Image Symptom analyzer.",
   "main": "index.js",
   "engines": {
     "node": "6.10.3"
@@ -9,7 +9,7 @@
   "keywords": [
     "react"
   ],
-  "author": "Joona Rahko & David Reid",
+  "author": "Wwwonderful && eMedi Innovations",
   "license": "MIT",
   "scripts": {
     "preinstall": "npm install pm2 -g && yarn run clean:all",
