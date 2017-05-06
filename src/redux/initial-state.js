@@ -9,6 +9,12 @@ const initialState = {
         ...ajaxEntity,
         locale: null,
         strings: {}
+    },
+    imageUploadStore: {
+        isFetching: false,
+        fetchError: false,
+        isEye: false,
+        phrLink: ''
     }
 };
 
