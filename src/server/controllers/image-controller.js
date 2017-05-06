@@ -1,12 +1,11 @@
-// eslint-disable max-len
+/* eslint-disable max-len */
 import bodyParser from 'body-parser';
 import fetch from 'isomorphic-fetch';
 import FormData from 'form-data';
-import fs from 'fs';
-import path from 'path';
 import sharp from 'sharp';
 import httpStatus from 'http-status-codes';
 import wrap from '../../lib/server/wrap';
+
 
 const VISUAL_RECOGNITION_ENTRYPOINT = 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=a1389efd3bb646317a3e6b9646269e52c0e8325e&version=2016-05-20';
 const PHR_DOCUMENT_REFERENCE_ENDPOINT = 'https://oda.medidemo.fi/phr/baseDstu3/DocumentReference';
@@ -25,30 +24,20 @@ class ImageController {
         }), wrap(ImageController.recognizeImage));
     }
 
-    static recognizeImage(req, res) {
-        const mimetype = 'image/jpeg';
-        const base64Data = req.body.toString().replace(/^data:image\/jpeg;base64,/, '');
-        const image = sharp(new Buffer(base64Data, 'base64'));
-        return image
-            .metadata()
-            .then(metadata => ImageController.resizeBuffer(image, metadata))
-            .then((imageBuffer) => {
-                const formData = new FormData();
-                formData.append('image_files', imageBuffer, { contentType: mimetype });
-                return fetch(VISUAL_RECOGNITION_ENTRYPOINT, { method: 'POST', body: formData })
-                    .then(response => response.json())
-                    .then(ImageController.enrichWithAnalysis)
-                    .then(json => {
-                        if(json.isEye) {
-                            // TODO: Enable upload later...
-                            // return ImageController.uploadImageToPhr(imageBuffer).then(result => { console.log(result); }).then(() => json);
-                            return Promise.resolve(json);
-                        } else {
-                            return Promise.resolve(json);
-                        }
-                    })
-                    .then(json => res.json(json));
-            });
+    static async recognizeImage(req, res) {
+        try {
+            const imageBuffer = await ImageController.prepareImage(req.body);
+            const data = await ImageController.analyzeImageWithWatson(imageBuffer);
+            const enrichedData = ImageController.enrichWithAnalysis(data);
+
+            if (enrichedData.isEye) {
+                await ImageController.uploadImageToPhr(imageBuffer);
+            }
+
+            return res.json(enrichedData);
+        } catch (err) {
+            return res.sendStatus(httpStatus.BAD_REQUEST);
+        }
     }
 
     static detectEye(data) {
@@ -64,14 +53,30 @@ class ImageController {
         return Object.assign({}, { isEye: ImageController.detectEye(result) }, result);
     }
 
-    static resizeBuffer(image, metadata) {
-        const largerDimension = metadata.width > metadata.height ? { dimension: 'width', value: metadata.width } : { dimension: 'height', value: metadata.height };
+    static async prepareImage(img) {
+        const base64Data = img.toString().replace(/^data:image\/jpeg;base64,/, '');
+        const image = sharp(new Buffer(base64Data, 'base64'));
+        const imageMetaData = await image.metadata();
+        return ImageController.resizeBuffer(image, imageMetaData);
+    }
+
+    static resizeBuffer(image, { width, height }) {
+        const largerDimension = width > height ? { dimension: 'width', value: width } : { dimension: 'height', value: height };
         if (largerDimension.value > 2500) {
-            console.log('Resizing image!');
             const resized = largerDimension.dimension === 'width' ? image.resize(2000, null) : image.resize(null, 2000);
             return resized.toBuffer();
         }
         return image.toBuffer();
+    }
+
+    static async analyzeImageWithWatson(imageBuffer) {
+        const mimetype = 'image/jpeg';
+        const formData = new FormData();
+        formData.append('image_files', imageBuffer, { contentType: mimetype });
+
+        const response = await fetch(VISUAL_RECOGNITION_ENTRYPOINT, { method: 'POST', body: formData });
+        const data = await response.json();
+        return ImageController.enrichWithAnalysis(data);
     }
 
     static async uploadImageToPhr(imageBuffer) {
@@ -97,7 +102,7 @@ class ImageController {
             ]
         };
 
-        return await fetch(PHR_DOCUMENT_REFERENCE_ENDPOINT, {
+        return fetch(PHR_DOCUMENT_REFERENCE_ENDPOINT, {
             method: 'POST',
             body: JSON.stringify(phrRequestBody),
             headers: {
