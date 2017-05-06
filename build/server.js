@@ -1590,7 +1590,7 @@ var ImageUpload = function (_Component) {
                 { elevation: 4, style: s.paperStyle },
                 __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_10_material_ui_Typography___default.a,
-                    { type: 'title' },
+                    { type: 'title', className: 'u-margin-xs-bottom' },
                     'Hetkinen... Analysoin n\xE4ytett\xE4'
                 ),
                 __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_material_ui_Progress__["LinearProgress"], null)

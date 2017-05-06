@@ -106,7 +106,7 @@ class ImageUpload extends Component {
 
         const loadingPanel = (
             <Paper elevation={4} style={s.paperStyle}>
-                <Typography type="title">
+                <Typography type="title" className="u-margin-xs-bottom">
                     Hetkinen... Analysoin näytettä
                 </Typography>
                 <LinearProgress />
