@@ -16,7 +16,7 @@ import { logErrors, catchAllErrorHandler, clientErrorHandler } from './lib/serve
 
 const app = express();
 app.use(healthCheck);
-app.use(forceDomain({ hostname: 'wwwonderful.com', protocol: 'https' }));
+app.use(forceDomain({ hostname: 'image-symtop.herokuapp.com', protocol: 'https' }));
 app.use(helmet());
 app.use(hpp());
 app.use(compression());
