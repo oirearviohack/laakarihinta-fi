@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { LinearProgress } from 'material-ui/Progress';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import Error from 'material-ui-icons/Error';
 import UploadPanel from './upload-panel';
 import TutorialPanel from './tutorial-panel';
 import imageUploadActions from './image-upload-actions';
@@ -21,13 +24,20 @@ const s = {
         justifyContent: 'space-around',
         textAlign: 'center',
         padding: 16
+    },
+    errorIcon: {
+        width: 30,
+        height: 30
     }
 };
 
 class ImageUpload extends Component {
 
     static propTypes = {
-        recognizeImage: PropTypes.func.isRequired,
+        actions: PropTypes.shape({
+            recognizeImage: PropTypes.func.isRequired,
+            clearState: PropTypes.func.isRequired
+        }).isRequired,
         history: PropTypes.shape({
             push: PropTypes.func.isRequired
         }).isRequired,
@@ -38,14 +48,14 @@ class ImageUpload extends Component {
         super();
         this.state = {
             file: null,
-            imagePreviewUrl: '',
-            submitInProgress: false
+            imagePreviewUrl: ''
         };
 
         this.onImageChange = ::this.onImageChange;
         this.onSubmitClicked = ::this.onSubmitClicked;
         this.removeImage = ::this.removeImage;
         this.goToSuccessPage = ::this.goToSuccessPage;
+        this.clearAll = ::this.clearAll;
     }
 
     componentDidUpdate() {
@@ -65,13 +75,12 @@ class ImageUpload extends Component {
             this.setState({ file, imagePreviewUrl: reader.result });
         };
 
-        this.setState({ file: null, imagePreviewUrl: '' });
+        this.removeImage();
         reader.readAsDataURL(file);
     }
 
     onSubmitClicked() {
-        this.setState({ submitInProgress: true });
-        this.props.recognizeImage(this.state.imagePreviewUrl);
+        this.props.actions.recognizeImage(this.state.imagePreviewUrl);
     }
 
     goToSuccessPage() {
@@ -79,10 +88,12 @@ class ImageUpload extends Component {
     }
 
     removeImage() {
-        this.setState({
-            file: null,
-            imagePreviewUrl: ''
-        });
+        this.setState({ file: null, imagePreviewUrl: '' });
+    }
+
+    clearAll() {
+        this.removeImage();
+        this.props.actions.clearState();
     }
 
     render() {
@@ -98,7 +109,7 @@ class ImageUpload extends Component {
                         removeImage={this.removeImage}
                         onSubmitClicked={this.onSubmitClicked}
                         onImageChange={this.onImageChange}
-                        submitInProgress={this.state.submitInProgress}
+                        isFetching={isFetching}
                     />
                 </div>
             </div>
@@ -116,12 +127,12 @@ class ImageUpload extends Component {
         const eyeNotRecognizedPanel = (
             <Paper elevation={4} style={s.statePanel}>
                 <div>
-                    <Typography type="display1">
+                    <Typography type="display1" className="u-margin-xxs-bottom">
                         Valitettavasti en löytänyt kuvasta silmää.
                     </Typography>
-                    <Typography type="body1">
-                        Ole hyvä ja ota uusi kuva.
-                    </Typography>
+                    <Button onClick={this.clearAll} primary raised>
+                        Ota uusi kuva
+                    </Button>
                 </div>
             </Paper>
         );
@@ -129,10 +140,10 @@ class ImageUpload extends Component {
         const serverErrorPanel = (
             <Paper elevation={4} style={s.statePanel}>
                 <div>
-                    <Typography type="display1">
-                        Nyt meni sormi suuhun
+                    <Typography type="display1" className="u-margin-xxs-bottom">
+                        <Error style={s.errorIcon} /> Nyt meni sormi suuhun
                     </Typography>
-                    <Typography type="body1">
+                    <Typography type="body">
                         Kehnot koodarit kaatoivat minut jättämällä bugin koodiin :(
                     </Typography>
                 </div>
@@ -155,9 +166,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    recognizeImage: (imageData) => {
-        dispatch(imageUploadActions.recognizeImage(imageData));
-    }
+    actions: bindActionCreators({ ...imageUploadActions }, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);

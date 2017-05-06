@@ -18,6 +18,10 @@ const s = {
         color: 'green',
         width: 30,
         height: 30
+    },
+    link: {
+        textDecoration: 'underline',
+        color: 'blue'
     }
 };
 
@@ -34,7 +38,7 @@ const ResultPage = () => (
                 <span className="u-margin-xxs-right">
                     Olemme lähettäneet kuvan lääkärin tarkasteltavaksi. Kuvaa pääset katsomaan
                 </span>
-                <a href="https://oda.medidemo.fi/phr/search?serverId=home&pretty=true&resource=DocumentReference">täältä</a>.
+                <a style={s.link} href="https://oda.medidemo.fi/phr/search?serverId=home&pretty=true&resource=DocumentReference">täältä</a>.
             </Typography>
         </div>
     </Paper>
