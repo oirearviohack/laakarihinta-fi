@@ -32,7 +32,8 @@ class ImageUpload extends Component {
         super();
         this.state = {
             file: null,
-            imagePreviewUrl: ''
+            imagePreviewUrl: '',
+            submitInProgress: false
         };
 
         this.onImageChange = ::this.onImageChange;
@@ -47,10 +48,12 @@ class ImageUpload extends Component {
             this.setState({ file, imagePreviewUrl: reader.result });
         };
 
+        this.setState({ file: null, imagePreviewUrl: '' });
         reader.readAsDataURL(file);
     }
 
     onSubmitClicked() {
+        this.setState({ submitInProgress: true });
         fetch('/api/recognize-image', {
             method: 'POST',
             body: this.state.imagePreviewUrl,
@@ -58,6 +61,7 @@ class ImageUpload extends Component {
         }).then(result => result.json())
           .then((json) => {
               console.log(json);
+              this.setState({ submitInProgress: false });
           });
     }
 
@@ -70,7 +74,7 @@ class ImageUpload extends Component {
 
     render() {
         const controlButtonContainerClass = classNames({
-            'u-hidden': !this.state.imagePreviewUrl,
+            'u-hidden': !this.state.imagePreviewUrl || this.state.submitInProgress,
             'u-margin-sm-top': true,
             row: true
         });
