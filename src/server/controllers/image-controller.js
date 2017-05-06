@@ -1,5 +1,4 @@
 // eslint-disable max-len
-import multer from 'multer';
 import bodyParser from 'body-parser';
 import fetch from 'isomorphic-fetch';
 import FormData from 'form-data';
@@ -9,10 +8,8 @@ import sharp from 'sharp';
 import httpStatus from 'http-status-codes';
 import wrap from '../../lib/server/wrap';
 
-
 const VISUAL_RECOGNITION_ENTRYPOINT = 'https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=a1389efd3bb646317a3e6b9646269e52c0e8325e&version=2016-05-20';
 const PHR_DOCUMENT_REFERENCE_ENDPOINT = 'https://oda.medidemo.fi/phr/baseDstu3/DocumentReference';
-const upload = multer({ storage: multer.memoryStorage() });
 
 class ImageController {
 
@@ -22,13 +19,27 @@ class ImageController {
     }
 
     registerRoutes() {
-        this.router.post('/recognize-image-2', bodyParser.json(), wrap(ImageController.hevonen));
-        this.router.post('/recognize-image', upload.single('image'), wrap(ImageController.recognizeImage));
+        this.router.post('/recognize-image', bodyParser.raw({
+            limit: '5mb',
+            type: 'image/jpeg'
+        }), wrap(ImageController.recognizeImage));
     }
 
-    static async hevonen(req, res) {
-        console.log(req.body);
-        res.json({ foo: 'bar' });
+    static recognizeImage(req, res) {
+        const mimetype = 'image/jpeg';
+        const base64Data = req.body.toString().replace(/^data:image\/jpeg;base64,/, "");
+        const image = sharp(new Buffer(base64Data, 'base64'));
+        return image
+            .metadata()
+            .then(metadata => ImageController.resizeBuffer(image, metadata))
+            .then((imageBuffer) => {
+                const formData = new FormData();
+                formData.append('image_files', imageBuffer, { contentType: mimetype });
+                return fetch(VISUAL_RECOGNITION_ENTRYPOINT, { method: 'POST', body: formData })
+                    .then(response => response.json())
+                    .then(ImageController.enrichWithAnalysis)
+                    .then(json => res.json(json));
+            });
     }
 
     static detectEye(data) {
@@ -52,21 +63,6 @@ class ImageController {
             return resized.toBuffer();
         }
         return image.toBuffer();
-    }
-
-    static recognizeImage(req, res) {
-        const image = sharp(req.file.buffer);
-        return image
-            .metadata()
-            .then(metadata => ImageController.resizeBuffer(image, metadata))
-            .then((imageBuffer) => {
-                const formData = new FormData();
-                formData.append('image_files', imageBuffer, { contentType: req.file.mimetype });
-                return fetch(VISUAL_RECOGNITION_ENTRYPOINT, { method: 'POST', body: formData })
-                    .then(response => response.json())
-                    .then(ImageController.enrichWithAnalysis)
-                    .then(json => res.json(json));
-            });
     }
 
     static async uploadImageToPhr(req, res) {

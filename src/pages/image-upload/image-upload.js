@@ -28,35 +28,16 @@ const s = {
 
 class ImageUpload extends Component {
 
-    static _fileUploaded(e) {
-        console.log(e.target);
-        console.log(e.target.files);
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            console.log(event.target.result);
-        };
-        reader.readAsDataURL(e.target.files[0]);
-    }
-
-    static onSubmitClicked() {
-        const body = {
-            foo: 'bar'
-        };
-        fetch('/api/recognize-image-2', {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
-        });
-    }
-
     constructor() {
         super();
         this.state = {
             file: null,
-            imagePreviewUrl: ''
+            imagePreviewUrl: '',
+            submitInProgress: false
         };
 
         this.onImageChange = ::this.onImageChange;
+        this.onSubmitClicked = ::this.onSubmitClicked;
         this.removeImage = ::this.removeImage;
     }
 
@@ -67,7 +48,21 @@ class ImageUpload extends Component {
             this.setState({ file, imagePreviewUrl: reader.result });
         };
 
+        this.setState({ file: null, imagePreviewUrl: '' });
         reader.readAsDataURL(file);
+    }
+
+    onSubmitClicked() {
+        this.setState({ submitInProgress: true });
+        fetch('/api/recognize-image', {
+            method: 'POST',
+            body: this.state.imagePreviewUrl,
+            headers: { 'Content-Type': 'image/jpeg' }
+        }).then(result => result.json())
+          .then((json) => {
+              console.log(json);
+              this.setState({ submitInProgress: false });
+          });
     }
 
     removeImage() {
@@ -79,7 +74,7 @@ class ImageUpload extends Component {
 
     render() {
         const controlButtonContainerClass = classNames({
-            'u-hidden': !this.state.imagePreviewUrl,
+            'u-hidden': !this.state.imagePreviewUrl || this.state.submitInProgress,
             'u-margin-sm-top': true,
             row: true
         });
@@ -92,16 +87,16 @@ class ImageUpload extends Component {
                             <Help />
                             <span className="u-margin-xxs-left">Ohjeet</span>
                         </Typography>
-                        <Typography type="body1">
-                            <p>1. Ota kuva noin 10cm etäisyydeltä silmistäsi.</p>
+                        <ol>
+                            <li>1. Ota kuva noin 10cm etäisyydeltä silmistäsi.</li>
                             <img
                                 src={require('../../assets/images/otakuva.jpg')}
                                 alt="Ota kuva"
                                 style={s.instructionImage}
                             />
-                            <p>2. Klikkaa lähetä.</p>
-                            <p>3. Tarkastele tuloksia.</p>
-                        </Typography>
+                            <li>2. Klikkaa lähetä.</li>
+                            <li>3. Tarkastele tuloksia.</li>
+                        </ol>
                     </Paper>
                 </div>
                 <div className="col-s-6">
@@ -121,7 +116,7 @@ class ImageUpload extends Component {
                                 </Button>
                             </div>
                             <div className="col-s-6">
-                                <Button onClick={ImageUpload.onSubmitClicked} style={s.controlButton} primary raised>
+                                <Button onClick={this.onSubmitClicked} style={s.controlButton} primary raised>
                                     Lähetä
                                 </Button>
                             </div>
