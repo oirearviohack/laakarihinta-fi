@@ -68,16 +68,10 @@ class ImageUpload extends Component {
     }
 }
 
-/*
-const mapStateToProps = (state, props) => {
-  return R.merge(props, {
-    uiStrings: getTranslations(state, props),
-    languageLinks: deriveLanguageLinks(state, props),
-    currentLanguage: getCurrentLanguage(state, props),
-    centers: state.centers
-  });
-};
-*/
+const mapStateToProps = state => ({
+    isFetching: state.imageUploadStore.isFetching,
+    fetchError: state.imageUploadStore.fetchError
+});
 
 const mapDispatchToProps = dispatch => ({
     recognizeImage: (imageData) => {
