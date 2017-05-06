@@ -12,7 +12,7 @@
   "author": "Joona Rahko & David Reid",
   "license": "MIT",
   "scripts": {
-    "preinstall": "yarn install pm2 -g && yarn run clean:all",
+    "preinstall": "yarn add pm2 -g && yarn run clean:all",
     "start": "yarn build && better-npm-run start:prod",
     "start:dev": "better-npm-run start:dev",
     "start:heroku": "better-npm-run start:heroku",
