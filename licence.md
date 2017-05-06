@@ -187,6 +187,13 @@
       identification within third-party archives.
 
    Copyright 2017 eMedi Innovations Oy
+   
+   Contributors 
+   Tuomas Järvensivu
+   Joona Rahko
+   Taru Vainikainen
+   Alec Hellström
+   Oirearviohack
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
