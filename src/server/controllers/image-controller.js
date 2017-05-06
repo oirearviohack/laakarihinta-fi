@@ -38,6 +38,15 @@ class ImageController {
                 return fetch(VISUAL_RECOGNITION_ENTRYPOINT, { method: 'POST', body: formData })
                     .then(response => response.json())
                     .then(ImageController.enrichWithAnalysis)
+                    .then(json => {
+                        if(json.isEye) {
+                            // TODO: Enable upload later...
+                            // return ImageController.uploadImageToPhr(imageBuffer).then(result => { console.log(result); }).then(() => json);
+                            return Promise.resolve(json);
+                        } else {
+                            return Promise.resolve(json);
+                        }
+                    })
                     .then(json => res.json(json));
             });
     }
@@ -65,7 +74,7 @@ class ImageController {
         return image.toBuffer();
     }
 
-    static async uploadImageToPhr(req, res) {
+    static async uploadImageToPhr(imageBuffer) {
         const phrRequestBody = {
             resourceType: 'DocumentReference',
             status: 'current',
@@ -81,25 +90,20 @@ class ImageController {
             content: [
                 {
                     attachment: {
-                        data: new Buffer(fs.readFileSync(path.resolve(__dirname, '../../assets/images/eyes.jpg'))).toString('base64'),
+                        data: imageBuffer.toString('base64'),
                         contentType: 'image/jpeg'
                     }
                 }
             ]
         };
 
-        try {
-            const response = await fetch(PHR_DOCUMENT_REFERENCE_ENDPOINT, {
-                method: 'POST',
-                body: JSON.stringify(phrRequestBody),
-                headers: {
-                    'content-type': 'application/fhir+json'
-                }
-            });
-            return res.json(response);
-        } catch (err) {
-            return res.sendStatus(httpStatus.BAD_REQUEST);
-        }
+        return await fetch(PHR_DOCUMENT_REFERENCE_ENDPOINT, {
+            method: 'POST',
+            body: JSON.stringify(phrRequestBody),
+            headers: {
+                'content-type': 'application/fhir+json'
+            }
+        });
     }
 }
 
