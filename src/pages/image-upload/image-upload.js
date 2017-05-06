@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import UploadPanel from './upload-panel';
 import TutorialPanel from './tutorial-panel';
+import imageUploadActions from './image-upload-actions';
 
 
 class ImageUpload extends Component {
+
+    static propTypes = {
+        recognizeImage: PropTypes.func.isRequired
+    };
 
     constructor() {
         super();
@@ -31,14 +38,7 @@ class ImageUpload extends Component {
 
     onSubmitClicked() {
         this.setState({ submitInProgress: true });
-        fetch('/api/recognize-image', {
-            method: 'POST',
-            body: this.state.imagePreviewUrl,
-            headers: { 'Content-Type': 'image/jpeg' }
-        }).then(result => result.json())
-          .then(() => {
-              this.setState({ submitInProgress: false });
-          });
+        this.props.recognizeImage(this.state.imagePreviewUrl);
     }
 
     removeImage() {
@@ -68,4 +68,23 @@ class ImageUpload extends Component {
     }
 }
 
-export default ImageUpload;
+/*
+const mapStateToProps = (state, props) => {
+  return R.merge(props, {
+    uiStrings: getTranslations(state, props),
+    languageLinks: deriveLanguageLinks(state, props),
+    currentLanguage: getCurrentLanguage(state, props),
+    centers: state.centers
+  });
+};
+*/
+
+const mapDispatchToProps = dispatch => ({
+    recognizeImage: (imageData) => {
+        dispatch(imageUploadActions.recognizeImage(imageData));
+    }
+});
+
+const ImageUploadWithState = connect(null, mapDispatchToProps)(ImageUpload);
+
+export default ImageUploadWithState;
