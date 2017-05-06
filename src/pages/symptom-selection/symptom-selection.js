@@ -41,7 +41,7 @@ const SymptomSelection = (props) => {
                 <Card style={s.firstCard}>
                     <CardMedia>
                         <img
-                            src="http://www.terve.fi/sites/default/files/media/terveyden_abc_uusi/laakarikirja/thinkstockphotos-470432764.jpg"
+                            src={require('../../assets/images/laastari.jpg')}
                             style={s.responsiveSymptomImage}
                             alt="wound"
                             role="presentation"
@@ -64,7 +64,7 @@ const SymptomSelection = (props) => {
                 <Card style={s.card}>
                     <CardMedia>
                         <img
-                            src="http://im.mtv.fi/image/3324602/landscape16_9/1024/576/a35798caeda534e4a609420462e51d14/jO/1828437.jpg"
+                            src={require('../../assets/images/eyes.jpg')}
                             style={s.responsiveSymptomImage}
                             alt="eyes"
                             role="presentation"
@@ -89,7 +89,7 @@ const SymptomSelection = (props) => {
                 <Card style={s.card}>
                     <CardMedia>
                         <img
-                            src="http://www.terve.fi/sites/default/files/media/terveyden_abc_uusi/laakarikirja/thinkstockphotos-470432764.jpg"
+                            src={require('../../assets/images/ihottuma.jpg')}
                             style={s.responsiveSymptomImage}
                             alt="rash"
                             role="presentation"
