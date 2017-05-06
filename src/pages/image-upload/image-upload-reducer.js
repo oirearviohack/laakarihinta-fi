@@ -23,7 +23,8 @@ const imageUploadReducer = (imageUploadStore = initialState.imageUploadStore, ac
                 isFetching: false,
                 fetchError: false,
                 isEye: action.results.isEye,
-                phrLink: 'http://laakarihinta.fi'
+                phrLink: 'http://laakarihinta.fi',
+                lastUpdated: new Date().getTime()
             };
         default:
             return imageUploadStore;

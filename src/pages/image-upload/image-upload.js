@@ -9,7 +9,11 @@ import imageUploadActions from './image-upload-actions';
 class ImageUpload extends Component {
 
     static propTypes = {
-        recognizeImage: PropTypes.func.isRequired
+        recognizeImage: PropTypes.func.isRequired,
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        }).isRequired,
+        recognitionState: PropTypes.shape().isRequired
     };
 
     constructor() {
@@ -23,6 +27,17 @@ class ImageUpload extends Component {
         this.onImageChange = ::this.onImageChange;
         this.onSubmitClicked = ::this.onSubmitClicked;
         this.removeImage = ::this.removeImage;
+        this.goToSuccessPage = ::this.goToSuccessPage;
+    }
+
+    componentDidUpdate() {
+        const eyeDetected = this.props.recognitionState.lastUpdated &&
+            !this.props.recognitionState.fetchError &&
+            !this.props.recognitionState.isFetching &&
+            this.props.recognitionState.isEye;
+        if (eyeDetected) {
+            this.goToSuccessPage();
+        }
     }
 
     onImageChange(files) {
@@ -39,6 +54,10 @@ class ImageUpload extends Component {
     onSubmitClicked() {
         this.setState({ submitInProgress: true });
         this.props.recognizeImage(this.state.imagePreviewUrl);
+    }
+
+    goToSuccessPage() {
+        this.props.history.push('/oirearvio');
     }
 
     removeImage() {
@@ -68,9 +87,8 @@ class ImageUpload extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    isFetching: state.imageUploadStore.isFetching,
-    fetchError: state.imageUploadStore.fetchError
+const mapStateToProps = (state) => ({
+    imageUploadStore: state.imageUploadStore
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -79,6 +97,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const ImageUploadWithState = connect(null, mapDispatchToProps)(ImageUpload);
-
-export default ImageUploadWithState;
+export default connect(mapStateToProps, mapDispatchToProps)(ImageUpload);

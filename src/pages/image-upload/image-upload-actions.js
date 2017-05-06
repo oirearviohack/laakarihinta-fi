@@ -1,4 +1,4 @@
-import fetch from '../../lib/shared/isomorphic-fetch-wrapper';
+import fetch from 'isomorphic-fetch';
 
 const RECOGNIZE_IMAGE = 'RECOGNIZE_IMAGE';
 const RECOGNIZE_IMAGE_ERROR = 'RECOGNIZE_IMAGE_ERROR';
@@ -16,7 +16,11 @@ const recognizeImage = imageData => async (dispatch) => {
             body: imageData,
             headers: { 'Content-Type': 'image/jpeg' }
         });
-        dispatch(recognizeImageSuccess(result));
+        if (result.ok) {
+            dispatch(recognizeImageSuccess(await result.json()));
+        } else {
+            dispatch(recognizeImageError());
+        }
     } catch (err) {
         dispatch(recognizeImageError());
     }
