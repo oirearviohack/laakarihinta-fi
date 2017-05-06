@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Done from 'material-ui-icons/Done';
 
+
 const s = {
     resultPanel: {
         display: 'flex',
