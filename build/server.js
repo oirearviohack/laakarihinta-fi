@@ -1415,7 +1415,7 @@ var imageUploadReducer = function imageUploadReducer() {
                 isFetching: false,
                 fetchError: false,
                 isEye: action.results.isEye,
-                phrLink: 'http://laakarihinta.fi',
+                phrLink: 'https://oda.medidemo.fi/phr/search?serverId=home&pretty=true&resource=DocumentReference',
                 lastUpdated: new Date().getTime()
             });
         case __WEBPACK_IMPORTED_MODULE_2__image_upload_actions__["a" /* default */].actionTypes.CLEAR_STATE:
@@ -1930,7 +1930,7 @@ var ResultPage = function ResultPage() {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'a',
-                    { href: 'https://laakarihinta.fi' },
+                    { href: 'https://oda.medidemo.fi/phr/search?serverId=home&pretty=true&resource=DocumentReference' },
                     't\xE4\xE4lt\xE4'
                 ),
                 '.'
