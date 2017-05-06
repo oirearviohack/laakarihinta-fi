@@ -55,13 +55,13 @@
       }
     },
     "build:client": {
-      "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.client.js",
+      "command": "webpack --hide-modules --config ./tools/webpack/webpack.client.js",
       "env": {
         "NODE_ENV": "production"
       }
     },
     "build:server": {
-      "command": "webpack --progress --hide-modules --config ./tools/webpack/webpack.server.js"
+      "command": "webpack --hide-modules --config ./tools/webpack/webpack.server.js"
     },
     "lint:js": {
       "command": "eslint ./src ./tools ./index.js"
