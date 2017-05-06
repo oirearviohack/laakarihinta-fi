@@ -24,7 +24,7 @@ const imageUploadReducer = (imageUploadStore = initialState.imageUploadStore, ac
                 isFetching: false,
                 fetchError: false,
                 isEye: action.results.isEye,
-                phrLink: 'http://laakarihinta.fi',
+                phrLink: 'https://oda.medidemo.fi/phr/search?serverId=home&pretty=true&resource=DocumentReference',
                 lastUpdated: new Date().getTime()
             };
         case imageUploadActions.actionTypes.CLEAR_STATE:

@@ -34,7 +34,7 @@ const ResultPage = () => (
                 <span className="u-margin-xxs-right">
                     Olemme lähettäneet kuvan lääkärin tarkasteltavaksi. Kuvaa pääset katsomaan
                 </span>
-                <a href="https://laakarihinta.fi">täältä</a>.
+                <a href="https://oda.medidemo.fi/phr/search?serverId=home&pretty=true&resource=DocumentReference">täältä</a>.
             </Typography>
         </div>
     </Paper>
