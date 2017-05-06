@@ -328,7 +328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
 app.use(__WEBPACK_IMPORTED_MODULE_9__lib_server_health_check__["a" /* default */]);
-app.use(__WEBPACK_IMPORTED_MODULE_6_forcedomain___default()({ hostname: 'wwwonderful.com', protocol: 'https' }));
+app.use(__WEBPACK_IMPORTED_MODULE_6_forcedomain___default()({ hostname: 'image-symtop.herokuapp.com', protocol: 'https' }));
 app.use(__WEBPACK_IMPORTED_MODULE_2_helmet___default()());
 app.use(__WEBPACK_IMPORTED_MODULE_3_hpp___default()());
 app.use(__WEBPACK_IMPORTED_MODULE_1_compression___default()());
