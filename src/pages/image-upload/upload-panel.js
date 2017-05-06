@@ -7,6 +7,7 @@ import Button from 'material-ui/Button';
 import classNames from 'classnames';
 import DropArea from './droparea';
 
+
 const s = {
     paperStyle: {
         padding: 16
