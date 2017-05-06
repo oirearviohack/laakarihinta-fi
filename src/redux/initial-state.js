@@ -11,8 +11,7 @@ const initialState = {
         strings: {}
     },
     imageUploadStore: {
-        isFetching: false,
-        fetchError: false,
+        ...ajaxEntity,
         isEye: false,
         phrLink: ''
     }
