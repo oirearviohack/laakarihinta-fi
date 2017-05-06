@@ -5,8 +5,12 @@ html {
 }
 
 body {
-    padding-top: $header-height;
+    padding-top: 50px;
     background-color: #fafafa;
+
+    @include mq($from: s) {
+        padding-top: 64px;
+    }
 }
 
 html,
