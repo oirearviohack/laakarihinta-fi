@@ -14,7 +14,7 @@ const AppHead = () => (
             { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Roboto:300,400,500' }
         ]}
         meta={[
-            { name: 'description', content: 'Coronaria Customer Targeting Tool' },
+            { name: 'description', content: 'Visu Dg' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no' }
         ]}
     />
